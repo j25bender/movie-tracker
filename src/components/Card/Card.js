@@ -9,6 +9,7 @@ const Card = ({ movieData }) => {
     <div>
       <h1 className="movie-title">{title}</h1>
       <article className="card" style={{ backgroundImage: `url(${poster})` }} />
+      <button className='favorite'></button>
     </div>
   );
 };

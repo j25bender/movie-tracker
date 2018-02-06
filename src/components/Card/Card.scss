@@ -10,3 +10,17 @@
 .movie-title {
   height: 65px;
 }
+
+.favorite {
+  background-image: url('../../assets/heart-outline.svg');
+  background-repeat: no-repeat;
+  border: none;
+  width: 30px;
+  height: 30px;
+  &:hover {
+    background-image: url('../../assets/heart-filled.svg');
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+  }
+}
