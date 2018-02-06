@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Card = ({ movieData }) => {
   // eslint-disable-next-line
-  const { title, overview, id, poster } = movieData;
+  const { title, overview, poster } = movieData;
   return (
     <div>
       <h1 className="movie-title">{title}</h1>
