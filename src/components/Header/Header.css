@@ -1,0 +1,12 @@
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f7f7;
+  height: 130px;
+}
+
+.title {
+  margin: 0;
+  font-size: 4em;
+}
