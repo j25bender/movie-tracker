@@ -9,19 +9,19 @@ class App extends Component {
     super();
     this.state = {
       movieData: []
-    }
+    };
   }
 
   componentDidMount = async () => {
     const fetchedMovieData = await movieData.fetchMovies();
     this.setState({ movieData: fetchedMovieData });
-  }
+  };
 
   render() {
     return (
       <div className="App">
         <Header />
-        <Main movieData={ this.state.movieData } />
+        <Main movieData={this.state.movieData} />
       </div>
     );
   }
