@@ -1,0 +1,12 @@
+.card {
+  flex-shrink: 0;
+  border-radius: 3px;
+  margin: 20px 50px;
+  width: 260px;
+  background-size: cover;
+  height: 400px;
+}
+
+.movie-title {
+  height: 65px;
+}

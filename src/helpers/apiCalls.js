@@ -1,4 +1,4 @@
-fetchApi = async (url) => {
+const fetchApi = async (url) => {
     try {
         const initialFetch = await fetch(url);
         if(initialFetch.status <= 200) {
