@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
+import Login from '../Login/Login';
+import SignUp from '../SignUp/SignUp';
+import { Switch, Route } from 'react-router-dom';
 import movieData from '../../helpers/helper.js';
 import './App.css';
 
@@ -21,7 +24,13 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Main movieData={this.state.movieData} />
+        <Switch>
+          <Route exact path='/' render={ () => (
+            <Main movieData={this.state.movieData} />) }>
+          </Route>
+          <Route path='/login' component={Login} />
+          <Route path='/sign-up' component={SignUp} />
+        </Switch>
       </div>
     );
   }
