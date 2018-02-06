@@ -1,11 +1,23 @@
 import React from 'react';
-// import './Main.css'
+import Card from '../Card/Card';
+import './Main.css'
 
-const Main = () => {
-
+const Main = ({ movieData }) => {
+  console.log(movieData)
+  if (movieData.length) {
+    const movies = movieData.map( movie => {
+      return (
+        <Card movieData={movie}/>
+      )
+    })
     return (
-        <div>Hello Main</div>
+      <div className='main'>
+        {movies}
+      </div>
     )
+  } else {
+    return null;
+  }
 }
 
 export default Main;
