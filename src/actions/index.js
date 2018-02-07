@@ -5,10 +5,16 @@ export const getMovies = (movieData) => ({
   movieData
 })
 
+<<<<<<< HEAD
 export const addUser = (username, email, password) => ({
   type: 'ADD_USER',
   username,
   email,
+=======
+export const addUser = (username, password) => ({
+  type: 'ADD_USER',
+  username,
+>>>>>>> added addUser adction and reducer and sign up form
   password
 })
 
