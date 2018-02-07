@@ -12,8 +12,7 @@ class Main extends Component {
   }
 
   componentDidMount = async () => {
-    const fetchedMovieData = await movieData.fetchMovies();
-    this.props.fetchMovies(fetchedMovieData);
+    this.props.fetchMovies();
   };
 
   render() {
@@ -49,5 +48,3 @@ Main.propTypes = {
   ),
   fetchMovies: PropTypes.func
 };
-
-// export default Main;
