@@ -1,8 +1,9 @@
 const fetchApi = async (url) => {
     try {
-        const initialFetch = await fetch(url);
+        const initialFetch = fetch(url);
         if(initialFetch.status <= 200) {
-            return await initialFetch.json();
+            const initialJson = initialFetch.json();
+            return dispatchEvent(initialJson)
         } else {
             throw new Error('Bad staus code!')
         }
