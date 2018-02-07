@@ -5,9 +5,10 @@ const getMovies = (movieData) => ({
   movieData
 })
 
-export const addUser = (username, password) => ({
+export const addUser = (username, email, password) => ({
   type: 'ADD_USER',
   username,
+  email,
   password
 })
 

@@ -7,8 +7,9 @@ class SignUp extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { 
+    this.state = {
       username: '',
+      email: '',
       password: ''
     }
   }
@@ -20,11 +21,14 @@ class SignUp extends Component {
       <section>
         <form onSubmit={ (e) => {
               e.preventDefault()
-              handleSubmit(this.state.username,                                 this.state.password)
+              handleSubmit(this.state.email,                                 this.state.password)
         }}>
-          <input value={ this.state.username }
+        <input value={ this.state.username }
                  placeholder='username' 
                  onChange={ (e) => this.setState({ username: e.target.value })} />
+          <input value={ this.state.email }
+                 placeholder='email' 
+                 onChange={ (e) => this.setState({ email: e.target.value })} />
           <input value={ this.state.password }
                  placeholder='Password'
                  type='password'
@@ -38,7 +42,7 @@ class SignUp extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  handleSubmit: (username, password) => dispatch(addUser(username, password))
+  handleSubmit: (username, email, password) => dispatch(addUser(username, email, password))
 })
 
 export default connect(null, mapDispatchToProps)(SignUp)
