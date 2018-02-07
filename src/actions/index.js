@@ -5,7 +5,11 @@ export const getMovies = (movieData) => ({
   movieData
 })
 
-
+export const addUser = (username, password) => ({
+  type: 'ADD_USER',
+  username,
+  password
+})
 
 // export const getMoviesFromApi = () => {
 //   return async (dispatch) => {
