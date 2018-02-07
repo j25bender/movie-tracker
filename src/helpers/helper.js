@@ -3,8 +3,9 @@ import fetchApi from './apiCalls';
 
 const imageUrl = 'https://image.tmdb.org/t/p/w500';
 
-const cleanMovies = (movies) => {
-  return movies.results.map( movie => {
+const cleanMovies = (movieData) => {
+  console.log(movieData)
+  return movieData.results.map( movie => {
     return {
       title: movie.title,
       id: movie.id,
