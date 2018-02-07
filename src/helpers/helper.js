@@ -20,7 +20,6 @@ const fetchMovies = async () => {
   return cleanMovies(movieFetch);
 }
 
-
 export default {
   fetchMovies
 }
