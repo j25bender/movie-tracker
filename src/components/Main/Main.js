@@ -39,9 +39,15 @@ export const mapStateToProps = store => ({
   movieData: store.movieData || []
 });
 
-export const mapDispatchToProps = dispatch => ({
-  fetchMovies: movieData => dispatch(getMovies(movieData))
-});
+// export const mapDispatchToProps = dispatch => ({
+//   fetchMovies: movieData => dispatch(getMovies(movieData))
+// });
+
+export const mapDispatchToProps = dispatch => {
+  console.log(dispatch);
+  
+  return {fetchMovies: movieData => dispatch(getMovies(movieData))}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
