@@ -15,16 +15,14 @@ const cleanMovies = (movieData) => {
 }
 
 const fetchMovies = async () => {
-  const movieFetch = await fetchApi(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`);
-  return cleanMovies(movieFetch);
+  try {
+    const movieFetch = await fetchApi(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`);
+    return cleanMovies(movieFetch);
+  } catch (error) {
+    const error = new Error('fetchMovies failed to fetch data');
+    return error;
+  }
 }
-
-const checkBackend = async () => {
-  const callApi = await fetchApi('/api/users')
-  console.log(callApi);
-}
-
-checkBackend()
 
 export default {
   fetchMovies
