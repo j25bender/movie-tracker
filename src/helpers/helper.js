@@ -4,7 +4,6 @@ import fetchApi from './apiCalls';
 const imageUrl = 'https://image.tmdb.org/t/p/w500';
 
 const cleanMovies = (movieData) => {
-  console.log(movieData)
   return movieData.results.map( movie => {
     return {
       title: movie.title,
@@ -16,8 +15,13 @@ const cleanMovies = (movieData) => {
 }
 
 const fetchMovies = async () => {
-  const movieFetch = await fetchApi(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`);
-  return cleanMovies(movieFetch);
+  try {
+    const movieFetch = await fetchApi(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`);
+    return cleanMovies(movieFetch);
+  } catch (error) {
+    const error = new Error('fetchMovies failed to fetch data');
+    return error;
+  }
 }
 
 export default {
