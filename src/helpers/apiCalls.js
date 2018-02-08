@@ -7,7 +7,8 @@ const fetchApi = async url => {
       throw new Error('Bad staus code!');
     }
   } catch (error) {
-    throw new Error(`Error retrieving Movies: ${error}`);
+    const error = new Error('fetchApi failed to fetch data');
+    return error;
   }
 };
 
