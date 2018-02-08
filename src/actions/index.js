@@ -18,6 +18,7 @@ export const getUser = (email, password) => ({
   password
 })
 
+
 export const login = (boolean) => ({
   type: 'LOGIN',
   boolean
