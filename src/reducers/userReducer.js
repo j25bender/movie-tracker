@@ -6,6 +6,11 @@ export const userReducer = (state = {}, action) => {
       email: action.email,
       password: action.password
     };
+  case 'GET_USER':
+    return {
+      email: action.email,
+      password: action.password
+    }
   default:
     return state;
   }
