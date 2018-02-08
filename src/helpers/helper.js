@@ -14,7 +14,7 @@ const cleanMovies = (movieData) => {
   })
 }
 
-const fetchMovies = async () => {
+export const fetchMovies = async () => {
   try {
     const movieFetch = await fetchApi(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`);
     return cleanMovies(movieFetch);
@@ -28,7 +28,7 @@ const fetchMovies = async () => {
 //make fetchcall 
 //dispatch to store
 
-const fetchUser = async () => {
+export const fetchUser = async () => {
   try {
     return await fetchApi('/api/users/');
   } catch (error) {
@@ -36,7 +36,7 @@ const fetchUser = async () => {
   }
 }
 
-export default {
-  fetchMovies,
-  fetchUser
-}
+// export {
+//   fetchMovies,
+//   fetchUser
+// }

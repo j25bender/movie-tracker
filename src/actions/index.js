@@ -1,6 +1,6 @@
-import fetchMovies from '../helpers/helper';
+import { fetchMovies } from '../helpers/helper';
 
-const getMovies = (movieData) => ({
+export const getMovies = (movieData) => ({
   type: 'GET_MOVIES',
   movieData
 })
@@ -18,6 +18,12 @@ export const getUser = (email, password) => ({
   password
 })
 
+
+export const login = (boolean) => ({
+  type: 'LOGIN',
+  boolean
+})
+
 // export const getMoviesFromApi = () => {
 //   return async (dispatch) => {
 //     const movieData = await fetchMovies(movieData);
@@ -27,9 +33,9 @@ export const getUser = (email, password) => ({
 
 export const getMoviesFromApi = () => {
   return (dispatch) => {
-    fetchMovies.fetchMovies()
+    fetchMovies()
     .then((movieData) => dispatch(getMovies(movieData)));
-  }
+  }  
 }
 
 // export function itemsFetchData(url) {
