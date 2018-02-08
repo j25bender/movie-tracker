@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import Card from '../Card/Card';
-import movieData from '../../helpers/helper.js';
 import { connect } from 'react-redux';
 import { getMoviesFromApi } from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount = async () => {
     this.props.fetchMovies();
@@ -44,7 +40,8 @@ Main.propTypes = {
       title: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
       poster: PropTypes.string.isRequired
-    })
-  ),
+    }).isRequired
+  ).isRequired,
+  
   fetchMovies: PropTypes.func
 };
