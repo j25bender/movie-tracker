@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import * as actions from '../index';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+it('should call action GET_Movies', () => {
+  const mockgetMovies = jest.fn();
+  actions.getMoviesFromApi();
+  expect(actions.getMovies()).toHaveBeenCalled()
+})
