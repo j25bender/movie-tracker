@@ -1,0 +1,17 @@
+export const userReducer = (state = {}, action) => {
+  switch (action.type) {
+  case 'ADD_USER':
+    return {
+      username: action.username,
+      email: action.email,
+      password: action.password
+    };
+  case 'GET_USER':
+    return {
+      email: action.email,
+      password: action.password
+    }
+  default:
+    return state;
+  }
+};
