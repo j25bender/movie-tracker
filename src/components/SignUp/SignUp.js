@@ -8,27 +8,26 @@ class SignUp extends Component {
     super(props);
 
     this.state = {
-      username: '',
-      email: '',
-      password: ''
+      name: '',
+      password: '',
+      email: ''
     };
   }
 
   // should parts of this be moved to helper?
-  async addUser (event) {
+  async addUserDatabase (event) {
     event.preventDefault();
-    const { username, email, password } = this.state;
+    const { name, password, email } = this.state;
 
     try {
-      const setUser = await fetch('/api/users/new', {
+      const reply = await fetch('/api/users/new', {
         method: 'POST',
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ name, password, email }),
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      const reply = await setUser
-      console.log(reply)
+      console.log('reply', reply)
 
     } catch (error) {
       const error = new Error('addUser failed to add user');
@@ -45,18 +44,18 @@ class SignUp extends Component {
           onSubmit={event => {
             event.preventDefault();
             handleSubmit(
-              this.state.username,
+              this.state.name,
               this.state.email.toLowerCase(),
               this.state.password
             );
-            this.addUser(event)
+            this.addUserDatabase(event)
           }}
         >
           <input
-            value={this.state.username}
-            placeholder="username"
+            value={this.state.name}
+            placeholder="name"
             autoComplete="email"
-            onChange={event => this.setState({ username: event.target.value })}
+            onChange={event => this.setState({ name: event.target.value })}
             required
           />
           <input
@@ -83,8 +82,8 @@ class SignUp extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (username, email, password) =>
-    dispatch(addUser(username, email, password))
+  handleSubmit: (name, email, password) =>
+    dispatch(addUser(name, email, password))
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);

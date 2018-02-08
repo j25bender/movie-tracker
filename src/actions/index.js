@@ -12,6 +12,12 @@ export const addUser = (username, email, password) => ({
   password
 })
 
+export const getUser = (email, password) => ({
+  type: 'GET_USER',
+  email,
+  password
+})
+
 // export const getMoviesFromApi = () => {
 //   return async (dispatch) => {
 //     const movieData = await fetchMovies(movieData);
