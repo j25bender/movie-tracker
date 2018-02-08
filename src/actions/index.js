@@ -1,9 +1,11 @@
 import fetchMovies from '../helpers/helper';
 
-const getMovies = (movieData) => ({
+export const getMovies = (movieData) => ({
   type: 'GET_MOVIES',
   movieData
 })
+
+
 
 // export const getMoviesFromApi = () => {
 //   return async (dispatch) => {
@@ -16,7 +18,7 @@ export const getMoviesFromApi = () => {
   return (dispatch) => {
     fetchMovies.fetchMovies()
     .then((movieData) => dispatch(getMovies(movieData)));
-  }
+  }  
 }
 
 // export function itemsFetchData(url) {
