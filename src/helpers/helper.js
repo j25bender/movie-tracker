@@ -1,5 +1,5 @@
 import { apiKey } from './apiKey';
-import fetchApi from './apiCalls';
+import { fetchApi, fetchBackend } from './apiCalls';
 
 const imageUrl = 'https://image.tmdb.org/t/p/w500';
 
@@ -20,10 +20,23 @@ const fetchMovies = async () => {
     return cleanMovies(movieFetch);
   } catch (error) {
     const error = new Error('fetchMovies failed to fetch data');
-    return error;
+    throw error;
+  }
+}
+
+//on login click
+//make fetchcall 
+//dispatch to store
+
+const fetchUser = async () => {
+  try {
+    return await fetchApi('/api/users/');
+  } catch (error) {
+    throw new Error('fetchMovies failed to fetch data');
   }
 }
 
 export default {
-  fetchMovies
+  fetchMovies,
+  fetchUser
 }
