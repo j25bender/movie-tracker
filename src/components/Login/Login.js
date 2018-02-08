@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetchUser from '../../helpers/helper';
-import { getUser } from '../../actions/index';
+import { fetchUser } from '../../helpers/helper';
+import { getUser, login } from '../../actions/index';
+// import { login } from '../../actions/index';
 
 class Login extends Component {
   constructor(props) {
@@ -14,22 +15,28 @@ class Login extends Component {
     };
   }
 
-  async componentDidMount() {
-    console.log(fetchUser.fetchUser())
+  async validateLogin() {
+    const userFetchResponse = await fetchUser();
+    const userMatch = userFetchResponse.data.find( user => {
+      return user.email === this.state.email
+    })
+    if(userMatch) {
+      this.props.handleLogin(true)
+    }
   }
 
   render() {
-    console.log('props',this.props)
-    // const { handleSubmit } = this.props;
+    const { handleSubmit } = this.props;
     return (
       <section>
         <form
           onSubmit={event => {
             event.preventDefault();
-            this.props.handleSubmit(
+            handleSubmit(
               this.state.email.toLowerCase(),
               this.state.password
             );
+            this.validateLogin()
           }}
         >
           <input
@@ -55,10 +62,13 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => ({
   handleSubmit: (email, password) => (
     dispatch(getUser(email, password))
+  ),
+  handleLogin: (boolean) => (
+    dispatch(login(boolean))
   )
-}
+})
 
 export default connect(null, mapDispatchToProps)(Login);

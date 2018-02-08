@@ -1,10 +1,10 @@
-const loginReducer = (state = {}, action) => {
+const loginReducer = (state = false, action) => {
   switch(action.type) {
-    case 'GET_USER':
-      return { email: action.email, password: action.password}
+    case 'LOGIN':
+      return action.boolean
     default:
       return state;
   }
 }
 
-export {loginReducer};
+export { loginReducer };
