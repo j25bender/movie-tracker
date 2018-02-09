@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card matches the snapshot 1`] = `
+<div>
+  <h1
+    className="movie-title"
+  >
+    Coco
+  </h1>
+  <article
+    className="card"
+    style={
+      Object {
+        "backgroundImage": "url(https://image.tmdb.org/t/p/w500/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg)",
+      }
+    }
+  />
+  <button
+    className="favorite"
+  />
+</div>
+`;

@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header loggedIn={this.props.loggedIn} />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route
@@ -30,6 +30,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
+
   loggedIn: state.loggedIn
 });
 

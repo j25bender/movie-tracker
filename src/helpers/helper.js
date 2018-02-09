@@ -21,8 +21,7 @@ export const fetchMovies = async () => {
     );
     return cleanMovies(movieFetch);
   } catch (error) {
-    const error = new Error('fetchMovies failed to fetch data');
-    return error;
+    throw new Error('fetchMovies failed to fetch data');
   }
 };
 

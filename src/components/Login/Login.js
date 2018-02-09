@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+
 import { fetchUser } from '../../helpers/helper';
 import { getUser, login } from '../../actions/index';
 import PropTypes from 'prop-types';
@@ -26,6 +28,7 @@ class Login extends Component {
       handleLogin(true);
     } else {
       throw new Error('Email address and password not found!');
+
     }
   }
 
