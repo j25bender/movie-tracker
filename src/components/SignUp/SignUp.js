@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addUser } from '../../actions/index';
+import { fetchUser } from '../../helpers/helper';
 
 class SignUp extends Component {
   constructor(props) {
@@ -14,21 +15,29 @@ class SignUp extends Component {
     };
   }
 
-  // should parts of this be moved to helper?
-  async addUserDatabase (event) {
+  async addUserDatabase(event) {
     event.preventDefault();
     const { name, password, email } = this.state;
 
     try {
-      const reply = await fetch('/api/users/new', {
-        method: 'POST',
-        body: JSON.stringify({ name, password, email }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      console.log('reply', reply)
+      const getUserData = await fetchUser();
 
+      const match = getUserData.data.find(user => {
+        // Should we return true or false instead of the object or undefined?
+        // It works for now, is there a better way?
+        return user.email === email;
+      });
+      if (!match) {
+        await fetch('/api/users/new', {
+          method: 'POST',
+          body: JSON.stringify({ name, password, email }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+      } else {
+        return alert('Email allready registered!');
+      }
     } catch (error) {
       const error = new Error('addUser failed to add user');
       return error;
@@ -48,7 +57,7 @@ class SignUp extends Component {
               this.state.email.toLowerCase(),
               this.state.password
             );
-            this.addUserDatabase(event)
+            this.addUserDatabase(event);
           }}
         >
           <input
