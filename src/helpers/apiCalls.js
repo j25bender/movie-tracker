@@ -7,8 +7,8 @@ const fetchApi = async url => {
       throw new Error('Bad staus code!');
     }
   } catch (error) {
-    const errorApi = new Error(`fetchApi failed to fetch data: ${error}`);
-    return errorApi;
+
+    throw new Error(`fetchApi failed to fetch data: ${error}`);
   }
 };
 
@@ -21,12 +21,8 @@ const fetchBackend = async url => {
       throw new Error('Bad staus code!');
     }
   } catch (error) {
-    const errorBackend = new Error(`fetchUser failed to fetch data: ${error}`);
-    return errorBackend;
+    throw new Error(`fetchUser failed to fetch data: ${error}`);
   }
-}
-
-export {
-  fetchApi,
-  fetchBackend
 };
+
+export { fetchApi, fetchBackend };

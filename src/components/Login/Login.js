@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
+
 import { fetchUser } from '../../helpers/helper';
 import { getUser, login } from '../../actions/index';
-// import { login } from '../../actions/index';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
   constructor(props) {
@@ -16,15 +17,18 @@ class Login extends Component {
   }
 
   async validateLogin() {
+    const { handleLogin } = this.props;
+    const { email, password } = this.state;
     const userFetchResponse = await fetchUser();
-    const userMatch = userFetchResponse.data.find( user => {
-      return user.email === this.state.email
-    })
-    if(userMatch) {
-      this.props.handleLogin(true)
-      console.log('Welcome Back!')
+
+    const userMatch = userFetchResponse.data.find(user => {
+      return user.email === email && user.password === password;
+    });
+    if (userMatch) {
+      handleLogin(true);
     } else {
-      console.log('Please Sign Up!')
+      throw new Error('Email address and password not found!');
+
     }
   }
 
@@ -35,11 +39,8 @@ class Login extends Component {
         <form
           onSubmit={event => {
             event.preventDefault();
-            handleSubmit(
-              this.state.email.toLowerCase(),
-              this.state.password
-            );
-            this.validateLogin()
+            handleSubmit(this.state.email.toLowerCase(), this.state.password);
+            this.validateLogin();
           }}
         >
           <input
@@ -65,13 +66,13 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  handleSubmit: (email, password) => (
-    dispatch(getUser(email, password))
-  ),
-  handleLogin: (boolean) => (
-    dispatch(login(boolean))
-  )
-})
+const mapDispatchToProps = dispatch => ({
+  handleSubmit: (email, password) => dispatch(getUser(email, password)),
+  handleLogin: boolean => dispatch(login(boolean))
+});
+
+Login.propTypes = {
+  handleSubmit: PropTypes.func
+};
 
 export default connect(null, mapDispatchToProps)(Login);
