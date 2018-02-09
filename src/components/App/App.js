@@ -15,7 +15,7 @@ class App extends Component {
     console.log(this.props.loggedIn)
     return (
       <div className="App">
-        <Header />
+        <Header loggedIn={this.props.loggedIn} />
         <Switch>
           <Route exact path='/' component={ Main } />
           <Route path='/login' render={ () => (
