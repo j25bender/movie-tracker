@@ -1,5 +1,5 @@
 import { apiKey } from './apiKey';
-import { fetchApi, fetchBackend } from './apiCalls';
+import { fetchApi } from './apiCalls';
 
 const imageUrl = 'https://image.tmdb.org/t/p/w500';
 

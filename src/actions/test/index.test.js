@@ -14,12 +14,17 @@ describe('all actions', () => {
     expect(actions.getMovies(mockmovieData)).toEqual(expected)
   })
 
-  it('should return a type of TOGGLE_TODO, with an id', () => {
-    const id = 0
-    const expected = {
-      type: 'TOGGLE_TODO',
-      id
-    }
-    expect(actions.toggleTodo(id)).toEqual(expected)
-  })
+//   it.skip('should return a type of ADD_USER, with username, email and password', () => {
+//     const name = 'Bob'
+//     const email = 'Bob@Bob.com'
+//     const password = 'Bob123'
+
+//     const expected = {
+//       type: 'ADD_USER',
+//       username,
+//       email,
+//       password
+//     }
+//     // expect(actions.addUser(name, email, password)).toEqual(expected)
+//   })
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { fetchUser } from '../../helpers/helper';
 import { getUser, login } from '../../actions/index';
 // import { login } from '../../actions/index';
@@ -22,6 +22,9 @@ class Login extends Component {
     })
     if(userMatch) {
       this.props.handleLogin(true)
+      console.log('Welcome Back!')
+    } else {
+      console.log('Please Sign Up!')
     }
   }
 

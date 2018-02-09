@@ -30,12 +30,6 @@ class App extends Component {
   }
 }
 
-{/* <Route path='/login' render={ () => (
-  this.props.loggedIn ? (
-            <Redirect to='/' /> )
-            : (<Login />)
- ) } /> */}
-
 const mapStateToProps = (state) => ({
   loggedIn: state.loggedIn
 })
