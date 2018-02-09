@@ -1,5 +1,5 @@
 import { apiKey } from './apiKey';
-import { fetchApi, fetchBackend } from './apiCalls';
+import { fetchApi } from './apiCalls';
 
 const imageUrl = 'https://image.tmdb.org/t/p/w500';
 
@@ -19,8 +19,8 @@ export const fetchMovies = async () => {
     const movieFetch = await fetchApi(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`);
     return cleanMovies(movieFetch);
   } catch (error) {
-    const error = new Error('fetchMovies failed to fetch data');
-    throw error;
+    const newError = new Error('fetchMovies failed to fetch data');
+    throw newError;
   }
 }
 
