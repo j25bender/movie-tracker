@@ -7,38 +7,34 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-
+import PropTypes from 'prop-types';
 
 class App extends Component {
-
   render() {
-    console.log(this.props.loggedIn)
     return (
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path='/' component={ Main } />
-          <Route path='/login' render={ () => (
-            this.props.loggedIn 
-            ? ( <Redirect to='/' /> )
-            : (<Login />)
-          ) } />
-          <Route path='/sign-up' component={ SignUp } />
+          <Route exact path="/" component={Main} />
+          <Route
+            path="/login"
+            render={() =>
+              this.props.loggedIn ? <Redirect to="/" /> : <Login />
+            }
+          />
+          <Route path="/sign-up" component={SignUp} />
         </Switch>
       </div>
     );
   }
 }
 
-{/* <Route path='/login' render={ () => (
-  this.props.loggedIn ? (
-            <Redirect to='/' /> )
-            : (<Login />)
- ) } /> */}
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   loggedIn: state.loggedIn
-})
+});
+
+App.propTypes = {
+  loggedIn: PropTypes.bool
+};
 
 export default withRouter(connect(mapStateToProps)(App));
-// export default App;
