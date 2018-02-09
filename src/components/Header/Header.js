@@ -6,7 +6,7 @@ import './Header.css';
 
 const Header = ({ loggedIn }) => {
   const signInButtons = loggedIn
-    ? <button className='logout'>LogOut</button>
+    ? <button className='logout login-container'>Log Out</button>
     : ( <div className='login-container'>
         <NavLink to={{ pathname: '/sign-up' }}>
           <button className='sign-up'>Sign Up</button>
