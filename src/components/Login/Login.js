@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchUser } from '../../helpers/helper';
 import { getUser, login } from '../../actions/index';
 import PropTypes from 'prop-types';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Login extends Component {
   }
 
   async validateLogin() {
-    const { handleLogin } = this.props;
+    const { handleLogin, handleSubmit } = this.props;
     const { email, password } = this.state;
     const userFetchResponse = await fetchUser();
 
@@ -24,19 +25,18 @@ class Login extends Component {
     });
     if (userMatch) {
       handleLogin(true);
+      handleSubmit(this.state.email.toLowerCase(), this.state.password, userMatch.id, userMatch.name);
     } else {
       alert('Invalid email address and password!');
     }
   }
 
   render() {
-    const { handleSubmit } = this.props;
     return (
       <section>
         <form
           onSubmit={event => {
             event.preventDefault();
-            handleSubmit(this.state.email.toLowerCase(), this.state.password);
             this.validateLogin();
           }}
         >
@@ -64,7 +64,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (email, password) => dispatch(getUser(email, password)),
+  handleSubmit: (email, password, id, name) => dispatch(getUser(email, password, id, name)),
   handleLogin: boolean => dispatch(login(boolean))
 });
 
