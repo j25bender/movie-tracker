@@ -39,7 +39,8 @@ class Main extends Component {
   toggleFavorite = async movieData => {
     const { userId } = this.props;
     const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
-    this.postFavorite(movieData);
+    const duplicate = existingFavorites.data.find( fav => fav.movie_id === movieData.id );
+    !duplicate && this.postFavorite(movieData);
   };
 
   render() {
