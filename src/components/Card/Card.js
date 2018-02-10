@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import './Card.css';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 let message;
 
 class Card extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       clicked: false
     }
@@ -21,8 +19,8 @@ class Card extends Component {
 
   render() {
     const { movieData, loggedIn } = this.props;
+    // eslint-disable-next-line
     const { title, overview, poster } = movieData;
-    console.log('MOVIEDATA', movieData)
     return (
       <div>
         <h1 className="movie-title">{title}</h1>

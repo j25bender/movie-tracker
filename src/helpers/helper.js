@@ -25,16 +25,16 @@ export const fetchMovies = async () => {
   }
 };
 
-const findRequestedUser = (allUsers, email) => {
+const findRequestedUser = (allUsers, email, password) => {
   return allUsers.data.find(user => {
-        return user.email === email;
-      });
+    return user.email === email && user.password === password;
+  });
 }
 
-export const fetchUser = async (email) => {
+export const fetchUser = async (email, password) => {
   try {
     const allUsers = await fetchApi('/api/users/');
-    return findRequestedUser(allUsers, email);
+    return findRequestedUser(allUsers, email, password);
   } catch (error) {
     throw new Error('fetchUser failed to fetch data');
   }
