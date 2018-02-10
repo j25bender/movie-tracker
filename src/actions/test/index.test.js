@@ -1,5 +1,9 @@
 /* eslint-disable */
 import * as actions from '../index';
+import { createStore } from 'redux';
+import rootReducer from '../../reducers/index';
+
+let store = createStore(rootReducer)
 
 describe('all actions', () => {
   it('should return a type of GET_MOVIES, with a movieData', () => {
@@ -14,6 +18,11 @@ describe('all actions', () => {
       type: 'GET_MOVIES',
       movieData: mockmovieData
     };
+    // const mockFetchMovies = store.dispatch(actions.getMovies(mockmovieData))
+    // console.log(store.getState())
+    // console.log(mockFetchMovies)
+    // console.log(actions.getMoviesFromApi(store.dispatch(mockFetchMovies)))
+    // expect(actions.getMoviesFromApi())
     expect(actions.getMovies(mockmovieData)).toEqual(expected);
   });
 
@@ -32,24 +41,26 @@ describe('all actions', () => {
   })
 
   it('should return a type of GET_USER with an email and password', () => {
-    const email = 'Bob@Bob.com'
-    const password = 'Bob123'
-
+    const email = 'Bob@Bob.com';
+    const password = 'Bob123';
     const expected = {
       type: 'GET_USER',
       email,
       password
     }
-    expect(actions.getUser(email, password)).toEqual(expected)
-  })
+    expect(actions.getUser(email, password)).toEqual(expected);
+  });
 
   it('should return a type of LOGIN and a payload of boolean', () => {
     const boolean = false
-
     const expected = {
       type: 'LOGIN',
       boolean
     }
-    expect(actions.login(false)).toEqual(expected)
-  })
+    expect(actions.login(false)).toEqual(expected);
+  });
+
+  // it('getMoviesFromApi action should call fetchMovies', () => {
+    
+  // })
 });
