@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getMoviesFromApi, setFavorites } from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
-import { fetchApi, postBackend } from '../../helpers/apiCalls';
+import { fetchApi, postBackend, deleteFromBackend } from '../../helpers/apiCalls';
 
 class Main extends Component {
   componentDidMount = async () => {
@@ -41,7 +41,15 @@ class Main extends Component {
     const { userId, setFavorites } = this.props;
     const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
     const duplicate = existingFavorites.data.find( fav => fav.movie_id === movieData.id );
-    !duplicate && this.postFavorite(movieData) && setFavorites(existingFavorites.data);
+    if(!duplicate) {
+      console.log('if')
+      this.postFavorite(movieData)
+      setFavorites(existingFavorites.data)
+    } else {
+      console.log(duplicate)
+      const body ={ id: userId, movie_id: duplicate.movie_id }
+      deleteFromBackend(`api/users/${userId}/favorites/${duplicate.movie_id}`, body)
+    }
   };
 
   render() {
