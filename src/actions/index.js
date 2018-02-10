@@ -5,19 +5,19 @@ export const getMovies = movieData => ({
   movieData
 });
 
-export const addUser = (name, email, password, id) => ({
+export const addUser = (name, email, password, userId) => ({
   type: 'ADD_USER',
   name,
   email,
   password,
-  id
+  userId
 });
 
-export const getUser = (email, password, id, name) => ({
+export const getUser = (email, password, userId, name) => ({
   type: 'GET_USER',
   email,
   password,
-  id,
+  userId,
   name
 });
 

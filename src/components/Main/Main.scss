@@ -1,4 +1,23 @@
 .main {
-    display: flex;
-    overflow-x: scroll;
+  display: flex;
+  padding: 15px 0;
+  overflow-x: scroll;
+}
+
+.main div {
+  margin: 32px 0 0 0;
+}
+
+.view-favorites {
+  position: absolute;
+  right: 20px;
+  height: 25px;
+  border: none;
+  background-color: #ceb3c5;
+  color: #fff;
+  font-size: 0.9em;
+  border-radius: 3px;
+  &:hover {
+    background-color: #9c7e92;
+  }
 }

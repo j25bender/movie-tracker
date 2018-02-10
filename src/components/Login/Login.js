@@ -19,7 +19,6 @@ class Login extends Component {
     const { handleLogin, handleSubmit } = this.props;
     const { email, password } = this.state;
     const userFetchResponse = await fetchUser();
-
     const userMatch = userFetchResponse.data.find(user => {
       return user.email === email && user.password === password;
     });
@@ -64,7 +63,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (email, password, id, name) => dispatch(getUser(email, password, id, name)),
+  handleSubmit: (email, password, userId, name) => dispatch(getUser(email, password, userId, name)),
   handleLogin: boolean => dispatch(login(boolean))
 });
 

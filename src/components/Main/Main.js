@@ -12,12 +12,15 @@ class Main extends Component {
   };
 
   render() {
-    const movieData = this.props.movieData;
+    const { movieData } = this.props;
     if (movieData.length) {
       const movies = movieData.map(movie => {
         return <Card movieData={movie} key={movie.id} />;
       });
-      return <div className="main">{movies}</div>;
+      return <div className="main">
+        <button className='view-favorites'>Favorites</button>
+        {movies}
+      </div>;
     } else {
       return null;
     }
