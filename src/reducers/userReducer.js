@@ -4,7 +4,8 @@ export const userReducer = (state = {}, action) => {
     return {
       username: action.username,
       email: action.email,
-      password: action.password
+      password: action.password,
+      id: action.id
     };
   case 'GET_USER':
     return {
