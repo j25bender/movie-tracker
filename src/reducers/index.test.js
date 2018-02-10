@@ -6,7 +6,6 @@ import { loginReducer } from './loginReducer';
 
 describe('RootReducer Test', () => {
   const rootReducer = combineReducers({ movieReducer, userReducer, loginReducer });
-  const store = createStore(rootReducer);
   const mockmovieData = [{
     title: 'Coco',
     id: 354912,
@@ -15,19 +14,21 @@ describe('RootReducer Test', () => {
       "Despite his family’s baffling generations-old ban …ck the real story behind Miguel's family history."
   }];
   let expectedStore;
+  let store;
 
   beforeEach( () => {
+    store = createStore(rootReducer);
     expectedStore = { movieReducer: [], 
       userReducer: {}, 
       loginReducer: false 
-    };
-  })
+    }
+  });
 
-  it('should have a starting store equal to an empty object {}', () => {
-    expect(store.getState().movieReducer).toEqual(movieReducer([], {}))
-    expect(store.getState().userReducer).toEqual(userReducer({}, {}))
-    expect(store.getState().loginReducer).toEqual(loginReducer(false, {}))
-  })
+  it('should have a starting store equal to an empty objects', () => {
+    expect(store.getState().movieReducer).toEqual(movieReducer([], {}));
+    expect(store.getState().userReducer).toEqual(userReducer({}, {}));
+    expect(store.getState().loginReducer).toEqual(loginReducer(false, {}));
+  });
 
   it('movie reducer should handle GET_MOVIES action type and update store', () => {
     expect(store.getState()).toEqual(expectedStore);
@@ -38,19 +39,17 @@ describe('RootReducer Test', () => {
   })
 
   it('login reducer should handle LOGIN action type and update store', () => {
-    store.getState() = expectedStore
-    console.log('ex', expectedStore)
     expect(store.getState()).toEqual(expectedStore);
-    
+
     const loginAction = { type: 'LOGIN', boolean: true };
     store.dispatch(loginAction);
     expect(store.getState().loginReducer).toEqual(loginReducer(true, loginAction));
   })
 
   it('user reducer should handle both ADD_USER and GET_USER type and update store', () => {
-    const username = 'Bob'
-    const email = 'Bob@Bob.com'
-    const password = 'Bob123'
+    const username = 'TBone'
+    const email = 'T@Bone.com'
+    const password = 'TBoneSteak123'
 
     const expected = {
       type: 'ADD_USER',
