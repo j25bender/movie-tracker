@@ -9,7 +9,10 @@ const cleanMovies = movieData => {
       title: movie.title,
       id: movie.id,
       poster: `${imageUrl}${movie.poster_path}`,
-      overview: movie.overview
+      overview: movie.overview,
+      favorite: false,
+      release_date: movie.release_date,
+      vote_average: movie.vote_average
     };
   });
 };
