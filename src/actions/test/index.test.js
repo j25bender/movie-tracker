@@ -52,8 +52,4 @@ describe('all actions', () => {
     }
     expect(actions.login(false)).toEqual(expected)
   })
-
-  it.skip('getMoviesFromApi should call fetchMovies', () => {
-    const mockDispatch = jest.fn();
-  })
 });
