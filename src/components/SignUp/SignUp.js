@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addUser } from '../../actions/index';
+import { addUser, login } from '../../actions/index';
 import { fetchUser } from '../../helpers/helper';
 
 class SignUp extends Component {
@@ -18,13 +18,12 @@ class SignUp extends Component {
   async addUserDatabase(event) {
     event.preventDefault();
     const { name, password, email } = this.state;
+    const { handleLogin } = this.props;
 
     try {
       const getUserData = await fetchUser();
 
       const match = getUserData.data.find(user => {
-        // Should we return true or false instead of the object or undefined?
-        // It works for now, is there a better way?
         return user.email === email;
       });
       if (!match) {
@@ -35,8 +34,9 @@ class SignUp extends Component {
             'Content-Type': 'application/json'
           }
         });
+        handleLogin(true);
       } else {
-        return alert('Email allready registered!');
+        return alert('Email is already registered!');
       }
     } catch (error) {
       const error = new Error('addUser failed to add user');
@@ -92,7 +92,8 @@ class SignUp extends Component {
 
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (name, email, password) =>
-    dispatch(addUser(name, email, password))
+    dispatch(addUser(name, email, password)),
+  handleLogin: boolean => dispatch(login(boolean))
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);
