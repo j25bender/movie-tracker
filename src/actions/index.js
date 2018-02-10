@@ -1,28 +1,28 @@
 import { fetchMovies } from '../helpers/helper';
 
-export const getMovies = (movieData) => ({
+export const getMovies = movieData => ({
   type: 'GET_MOVIES',
   movieData
-})
+});
 
 export const addUser = (username, email, password) => ({
   type: 'ADD_USER',
   username,
   email,
   password
-})
+});
 
 export const getUser = (email, password) => ({
   type: 'GET_USER',
   email,
   password
-})
+});
 
-
-export const login = (boolean) => ({
+//could become toggleLogin
+export const login = boolean => ({
   type: 'LOGIN',
   boolean
-})
+});
 
 // export const getMoviesFromApi = () => {
 //   return async (dispatch) => {
@@ -32,11 +32,10 @@ export const login = (boolean) => ({
 // }
 
 export const getMoviesFromApi = () => {
-  return (dispatch) => {
-    fetchMovies()
-    .then((movieData) => dispatch(getMovies(movieData)));
-  }  
-}
+  return dispatch => {
+    fetchMovies().then(movieData => dispatch(getMovies(movieData)));
+  };
+};
 
 // export function itemsFetchData(url) {
 //     return (dispatch) => {
