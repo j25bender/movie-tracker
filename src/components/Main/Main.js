@@ -45,7 +45,8 @@ class Main extends Component {
   };
 
   render() {
-    const { movieData, loggedIn } = this.props;
+    let { movieData, loggedIn } = this.props;
+    movieData = movieData ? movieData : []
     if (movieData.length) {
       const movies = movieData.map(movie => {
         return (
@@ -70,7 +71,7 @@ class Main extends Component {
 }
 
 export const mapStateToProps = state => ({
-  movieData: state.movieData || [],
+  // movieData: state.movieData || [],
   loggedIn: state.loggedIn,
   userId: state.userData.userId
 });
