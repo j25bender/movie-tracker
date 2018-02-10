@@ -18,10 +18,8 @@ class Login extends Component {
   async validateLogin() {
     const { handleLogin, handleSubmit } = this.props;
     const { email, password } = this.state;
-    const userFetchResponse = await fetchUser();
-    const userMatch = userFetchResponse.data.find(user => {
-      return user.email === email && user.password === password;
-    });
+    const userMatch = await fetchUser(email, password);
+
     if (userMatch) {
       handleLogin(true);
       handleSubmit(this.state.email.toLowerCase(), this.state.password, userMatch.id, userMatch.name);
