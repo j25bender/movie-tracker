@@ -15,10 +15,14 @@ class SignUp extends Component {
     };
   }
 
+
   async addUserDatabase(event) {
+    console.log('props', this.props)
+    console.log('state', this.state)
+    
     event.preventDefault();
-    const { name, password, email } = this.state;
-    const { handleLogin } = this.props;
+    const { name, password, email, id } = this.state;
+    const { handleLogin, handleSubmit } = this.props;
 
     try {
       const getUserData = await fetchUser();
@@ -27,14 +31,17 @@ class SignUp extends Component {
         return user.email === email;
       });
       if (!match) {
-        await fetch('/api/users/new', {
+        const newUser = await fetch('/api/users/new', {
           method: 'POST',
           body: JSON.stringify({ name, password, email }),
           headers: {
             'Content-Type': 'application/json'
           }
         });
+        const userResponse = await newUser.json();
         handleLogin(true);
+        handleSubmit( name, email.toLowerCase(), password, userResponse.id );
+
       } else {
         return alert('Email is already registered!');
       }
@@ -45,18 +52,11 @@ class SignUp extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
-
     return (
       <section>
         <form
           onSubmit={event => {
             event.preventDefault();
-            handleSubmit(
-              this.state.name,
-              this.state.email.toLowerCase(),
-              this.state.password
-            );
             this.addUserDatabase(event);
           }}
         >
@@ -91,8 +91,8 @@ class SignUp extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (name, email, password) =>
-    dispatch(addUser(name, email, password)),
+  handleSubmit: (name, email, password, id) =>
+    dispatch(addUser(name, email, password, id)),
   handleLogin: boolean => dispatch(login(boolean))
 });
 
