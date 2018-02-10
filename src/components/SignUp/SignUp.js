@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addUser, login } from '../../actions/index';
-import { fetchUser } from '../../helpers/helper';
+import { fetchUser, postNewUser } from '../../helpers/helper';
 
 class SignUp extends Component {
   constructor(props) {
@@ -15,29 +15,16 @@ class SignUp extends Component {
     };
   }
 
-
   async addUserDatabase(event) {
     event.preventDefault();
     const { name, password, email} = this.state;
     const { handleLogin, handleSubmit } = this.props;
-
     try {
-      const getUserData = await fetchUser();
-
-      const match = getUserData.data.find(user => {
-        return user.email === email;
-      });
-      if (!match) {
-        const newUser = await fetch('/api/users/new', {
-          method: 'POST',
-          body: JSON.stringify({ name, password, email }),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        const userResponse = await newUser.json();
+      const existingUser = await fetchUser(email);
+      if (!existingUser) {
+        const newUser = await postNewUser({ name, password, email });
         handleLogin(true);
-        handleSubmit( name, email.toLowerCase(), password, userResponse.id );
+        handleSubmit( name, email.toLowerCase(), password, newUser.id );
       } else {
         return alert('Email is already registered!');
       }
@@ -87,8 +74,8 @@ class SignUp extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (name, email, password, id) =>
-    dispatch(addUser(name, email, password, id)),
+  handleSubmit: (name, email, password, userId) =>
+    dispatch(addUser(name, email, password, userId)),
   handleLogin: boolean => dispatch(login(boolean))
 });
 
