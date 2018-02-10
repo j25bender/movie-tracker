@@ -12,12 +12,21 @@ import PropTypes from 'prop-types';
 
 class App extends Component {
   render() {
+    console.log(this.props.movieData)
     return (
       <div className="App">
+
+
         <Header />
         <Switch>
-          <Route exact path="/" component={ Main } />
-          <Route path="/favorites" component={ FavoriteContainer } />
+          <Route exact path="/" render={ () => (
+            <Main movieData={this.props.movieData} />
+          )} />
+          <Route path="/favorites" render={ () => (
+            this.props.loggedIn
+            ? (<Main movieData={this.props.favorites} />)
+            : (<Main movieData={this.props.movieData} />)
+          ) } />
           <Route
             path="/login"
             render={() =>
@@ -37,12 +46,28 @@ class App extends Component {
   }
 }
 
+//       <Switch>
+//         <Route exact path="/" render={() => (
+//           <CardContainer films={props.films} />
+//           )} 
+//         />
+// ...other routes...
+//         <Route path="/favorites" render={() => (
+//           props.user.name ? 
+//             (<CardContainer films={props.user.favorites} />) 
+//             : (<Redirect to="/" />)
+//           )} 
+//         />     
+//         </Switch>
+
 const mapStateToProps = state => ({
-  loggedIn: state.loggedIn
+  loggedIn: state.loggedIn,
+  movieData: state.movieData,
+  favorites: state.favorites
 });
 
 App.propTypes = {
   loggedIn: PropTypes.bool
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, null)(App));
