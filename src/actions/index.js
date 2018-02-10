@@ -5,18 +5,20 @@ export const getMovies = movieData => ({
   movieData
 });
 
-export const addUser = (username, email, password, id) => ({
+export const addUser = (name, email, password, id) => ({
   type: 'ADD_USER',
-  username,
+  name,
   email,
   password,
   id
 });
 
-export const getUser = (email, password) => ({
+export const getUser = (email, password, id, name) => ({
   type: 'GET_USER',
   email,
-  password
+  password,
+  id,
+  name
 });
 
 //could become toggleLogin

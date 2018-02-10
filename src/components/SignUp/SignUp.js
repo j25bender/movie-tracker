@@ -21,7 +21,7 @@ class SignUp extends Component {
     console.log('state', this.state)
     
     event.preventDefault();
-    const { name, password, email, id } = this.state;
+    const { name, password, email} = this.state;
     const { handleLogin, handleSubmit } = this.props;
 
     try {

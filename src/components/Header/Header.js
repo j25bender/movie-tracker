@@ -6,11 +6,14 @@ import { login } from '../../actions/index';
 import PropTypes from 'prop-types';
 
 export const Header = props => {
-  const { loggedIn, logout } = props;
+  const { loggedIn, logout, name } = props;
   const signInButtons = loggedIn ? (
-    <button className="logout login-container" onClick={() => logout(false)}>
-      Log Out
-    </button>
+    <div className="login-container">
+      <p>{name}</p>
+      <button className="logout" onClick={() => logout(false)}>
+        Log Out
+      </button>
+    </div>
   ) : (
     <div className="login-container">
       <NavLink to={{ pathname: '/sign-up' }}>
@@ -33,7 +36,8 @@ export const Header = props => {
 };
 
 const mapStateToProps = state => ({
-  loggedIn: state.loggedIn
+  loggedIn: state.loggedIn,
+  name: state.userData.name
 });
 
 const mapDispatchToProps = dispatch => ({

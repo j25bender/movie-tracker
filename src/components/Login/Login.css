@@ -1,0 +1,25 @@
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 0 0 0; }
+
+input {
+  margin: 7px 0;
+  width: 40%;
+  height: 30px;
+  text-indent: 7px;
+  letter-spacing: .7px;
+  font-size: 1em; }
+
+form button {
+  border: none;
+  border-radius: 3px;
+  background-color: #ceb3c5;
+  color: #fff;
+  font-size: 1.3em;
+  height: 36px;
+  letter-spacing: 1.2px;
+  width: 40.5%; }
+  form button:hover {
+    background-color: #9c7e92; }

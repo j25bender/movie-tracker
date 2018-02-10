@@ -33,7 +33,7 @@ export const fetchUser = async () => {
   try {
     return await fetchApi('/api/users/');
   } catch (error) {
-    throw new Error('fetchMovies failed to fetch data');
+    throw new Error('fetchUser failed to fetch data');
   }
 };
 
