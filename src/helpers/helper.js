@@ -8,7 +8,7 @@ const cleanMovies = movieData => {
     return {
       title: movie.title,
       id: movie.id,
-      poster: `${imageUrl}${movie.poster_path}`,
+      poster_path: `${imageUrl}${movie.poster_path}`,
       overview: movie.overview,
       favorite: false,
       release_date: movie.release_date,

@@ -27,6 +27,11 @@ export const login = boolean => ({
   boolean
 });
 
+export const setFavorites = favorites => ({
+  type: 'SET_FAVORITES',
+  favorites
+});
+
 // export const getMoviesFromApi = () => {
 //   return async (dispatch) => {
 //     const movieData = await fetchMovies(movieData);

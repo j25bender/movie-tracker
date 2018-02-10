@@ -22,13 +22,13 @@ class Card extends Component {
   render() {
     const { movieData, loggedIn } = this.props;
     // eslint-disable-next-line
-    const { title, overview, poster } = movieData;
+    const { title, overview, poster_path } = movieData;
     return (
       <div>
         <h1 className="movie-title">{title}</h1>
         <article
           className="card"
-          style={{ backgroundImage: `url(${poster})` }}
+          style={{ backgroundImage: `url(${poster_path})` }}
         />
         {!loggedIn && message}
         <button

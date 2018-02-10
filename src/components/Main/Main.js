@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import { connect } from 'react-redux';
-import { getMoviesFromApi } from '../../actions/index.js';
+import { getMoviesFromApi, setFavorites } from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
 import { fetchApi, postBackend } from '../../helpers/apiCalls';
@@ -17,7 +18,7 @@ class Main extends Component {
     const {
       id: movie_id,
       title,
-      poster: poster_path,
+      poster_path,
       release_date,
       vote_average,
       overview
@@ -37,10 +38,10 @@ class Main extends Component {
   };
 
   toggleFavorite = async movieData => {
-    const { userId } = this.props;
+    const { userId, setFavorites } = this.props;
     const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
     const duplicate = existingFavorites.data.find( fav => fav.movie_id === movieData.id );
-    !duplicate && this.postFavorite(movieData);
+    !duplicate && this.postFavorite(movieData) && setFavorites(existingFavorites.data);
   };
 
   render() {
@@ -58,8 +59,8 @@ class Main extends Component {
       });
       return (
         <div className="main">
-          <button className="view-favorites">Favorites</button>
-          {movies}
+          <Link to={{ pathname: '/favorites' }}><button className="view-favorites">Favorites</button></Link>
+          { movies }
         </div>
       );
     } else {
@@ -75,7 +76,8 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchMovies: movieData => dispatch(getMoviesFromApi(movieData))
+  fetchMovies: movieData => dispatch(getMoviesFromApi(movieData)),
+  setFavorites: favorites => dispatch(setFavorites(favorites))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
@@ -85,7 +87,7 @@ Main.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
-      poster: PropTypes.string.isRequired
+      poster_path: PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
 

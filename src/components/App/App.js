@@ -3,6 +3,7 @@ import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
+import FavoriteContainer from '../FavoriteContainer/FavoriteContainer'
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
@@ -15,7 +16,8 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path="/" component={Main} />
+          <Route exact path="/" component={ Main } />
+          <Route path="/favorites" component={ FavoriteContainer } />
           <Route
             path="/login"
             render={() =>
@@ -28,6 +30,7 @@ class App extends Component {
               this.props.loggedIn ? <Redirect to="/" /> : <SignUp />
             }
           />
+          
         </Switch>
       </div>
     );
