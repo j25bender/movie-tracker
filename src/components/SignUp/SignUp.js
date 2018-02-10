@@ -17,9 +17,6 @@ class SignUp extends Component {
 
 
   async addUserDatabase(event) {
-    console.log('props', this.props)
-    console.log('state', this.state)
-    
     event.preventDefault();
     const { name, password, email} = this.state;
     const { handleLogin, handleSubmit } = this.props;
@@ -41,7 +38,6 @@ class SignUp extends Component {
         const userResponse = await newUser.json();
         handleLogin(true);
         handleSubmit( name, email.toLowerCase(), password, userResponse.id );
-
       } else {
         return alert('Email is already registered!');
       }
