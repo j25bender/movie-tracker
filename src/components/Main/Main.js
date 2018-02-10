@@ -12,14 +12,14 @@ class Main extends Component {
   };
 
   render() {
-    const { movieData } = this.props;
+    const { movieData, loggedIn } = this.props;
     if (movieData.length) {
       const movies = movieData.map(movie => {
-        return <Card movieData={movie} key={movie.id} />;
+        return <Card movieData={ movie } key={ movie.id } loggedIn={ loggedIn } />;
       });
       return <div className="main">
         <button className='view-favorites'>Favorites</button>
-        {movies}
+        { movies }
       </div>;
     } else {
       return null;
@@ -27,8 +27,9 @@ class Main extends Component {
   }
 }
 
-export const mapStateToProps = store => ({
-  movieData: store.movieData || []
+export const mapStateToProps = state => ({
+  movieData: state.movieData || [],
+  loggedIn: state.loggedIn
 });
 
 export const mapDispatchToProps = dispatch => ({
