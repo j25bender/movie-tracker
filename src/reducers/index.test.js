@@ -47,24 +47,19 @@ describe('RootReducer Test', () => {
   })
 
   it('user reducer should handle both ADD_USER and GET_USER type and update store', () => {
-    const username = 'TBone'
-    const email = 'T@Bone.com'
-    const password = 'TBoneSteak123'
+    expect(store.getState()).toEqual(expectedStore);
 
-    const expected = {
-      type: 'ADD_USER',
-      username,
-      email,
-      password
-    }
+    const username = 'TBone';
+    const email = 'T@Bone.com';
+    const password = 'TBoneSteakums';
+    const id = 23;
 
-    const addUserAction = { type: 'LOGIN', boolean: true };
+    const addUserAction = { type: 'ADD_USER', username, email, password, id }
     store.dispatch(addUserAction)
-    expect(store.getState().loginReducer).toEqual(loginReducer(true, addUserAction));
+    expect(store.getState().userReducer).toEqual(userReducer({}, addUserAction));
 
-    // const getUserAction = { type: 'LOGIN', boolean: true };
-    // store.dispatch(getUserAction)
-    // expect(store.getState().loginReducer).toEqual(loginReducer(true, getUserAction));
+    const getUserAction = { type: 'GET_USER', email, password };
+    store.dispatch(getUserAction)
+    expect(store.getState().userReducer).toEqual(userReducer({}, getUserAction));    
   })
-
 })
