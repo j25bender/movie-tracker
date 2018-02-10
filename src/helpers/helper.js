@@ -1,5 +1,5 @@
 import { apiKey } from './apiKey';
-import { fetchApi } from './apiCalls';
+import { fetchApi, postBackend } from './apiCalls';
 
 const imageUrl = 'https://image.tmdb.org/t/p/w500';
 
@@ -25,15 +25,26 @@ export const fetchMovies = async () => {
   }
 };
 
-//on login click
-//make fetchcall
-//dispatch to store
+const findRequestedUser = (allUsers, email) => {
+  return allUsers.data.find(user => {
+        return user.email === email;
+      });
+}
 
-export const fetchUser = async () => {
+export const fetchUser = async (email) => {
   try {
-    return await fetchApi('/api/users/');
+    const allUsers = await fetchApi('/api/users/');
+    return findRequestedUser(allUsers, email);
   } catch (error) {
     throw new Error('fetchUser failed to fetch data');
   }
 };
+
+export const postNewUser = async (body) => {
+  try {
+    return await postBackend('/api/users/new', body)
+  } catch (error) {
+    throw new Error(`postNewUser failed to post to backend: ${error}`)
+  }
+}
 
