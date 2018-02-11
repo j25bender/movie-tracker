@@ -43,24 +43,33 @@ export class Main extends Component {
 
   toggleFavorite = async movieData => {
     const { userId, setFavorites } = this.props;
-    const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
+    const backendFavorites = await fetchApi(`api/users/${userId}/favorites/`);
+    const existingFavorites = this.markFavsAsFavorites(backendFavorites.data);
     if (!movieData.favorite) {
+      movieData.favorite = !movieData.favorite;
       this.postFavorite(movieData);
-      setFavorites([...existingFavorites.data, movieData]);
+      setFavorites([...existingFavorites, movieData]);
     } else {
       const body = { id: userId, movie_id: movieData.id };
+      movieData.favorite = !movieData.favorite;
       this.deleteFromStore(existingFavorites, movieData);
       deleteFromBackend(
         `api/users/${userId}/favorites/${movieData.id}`,
         body
       );
     }
-    movieData.favorite = !movieData.favorite;
   };
+
+markFavsAsFavorites = (favorites) => {
+    return favorites.map( fav => {
+      fav.favorite = true;
+      return fav
+    })
+  }
 
   deleteFromStore = (favorites, duplicate) => {
     const { setFavorites } = this.props;
-    const duplicateRemoved = favorites.data.filter( fav => 
+    const duplicateRemoved = favorites.filter( fav => 
       (fav.movie_id !== duplicate.id));
     setFavorites(duplicateRemoved);
   }
