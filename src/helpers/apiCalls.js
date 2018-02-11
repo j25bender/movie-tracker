@@ -14,12 +14,12 @@ const fetchApi = async url => {
 const postBackend = async (url, body) => {
   try {
     const initialFetch = await fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
     if (initialFetch.status <= 200) {
       return await initialFetch.json();
     } else {
@@ -28,17 +28,17 @@ const postBackend = async (url, body) => {
   } catch (error) {
     throw new Error(`postBackend failed to post to backend: ${error}`);
   }
-}
+};
 
 const deleteFromBackend = async (url, body) => {
   try {
     const initialFetch = await fetch(url, {
-            method: 'DELETE',
-            body: JSON.stringify(body),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
+      method: 'DELETE',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
     if (initialFetch.status <= 200) {
       return await initialFetch.json();
     } else {
@@ -47,6 +47,6 @@ const deleteFromBackend = async (url, body) => {
   } catch (error) {
     throw new Error(`deleteFromBackend failed to post to backend: ${error}`);
   }
-}
+};
 
 export { fetchApi, postBackend, deleteFromBackend };
