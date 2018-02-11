@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import { addUser, login } from '../../actions/index';
 import { fetchUser, postNewUser } from '../../helpers/helper';
 
-class SignUp extends Component {
+export class SignUp extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: '',
       password: '',
-      email: ''
+      email: '',
+      error: ''
     };
   }
 
@@ -25,18 +26,20 @@ class SignUp extends Component {
         const newUser = await postNewUser({ name, password, email });
         handleLogin(true);
         handleSubmit( name, email.toLowerCase(), password, newUser.id );
-      } else {
-        return alert('Email is already registered!');
       }
     } catch (error) {
-      const error = new Error('addUser failed to add user');
-      return error;
+      this.setState({
+        error
+      })
     }
   }
 
   render() {
     return (
       <section>
+        {
+          this.state.error && <div className="failed-login">Failed to create new user</div>
+        }
         <form
           onSubmit={event => {
             event.preventDefault();
