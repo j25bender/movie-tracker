@@ -9,6 +9,7 @@ import {
   postBackend,
   deleteFromBackend
 } from '../../helpers/apiCalls';
+import Card from '../Card/Card';
 
 export class Main extends Component {
   componentDidMount = async () => {
@@ -105,7 +106,7 @@ Main.propTypes = {
       id: PropTypes.number.isRequired,
       poster_path: PropTypes.string.isRequired
     })
-  ).isRequired,
+  ),
 
   fetchMovies: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired
