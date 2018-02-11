@@ -60,7 +60,7 @@ App.propTypes = {
   movieData: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
+      movie_id: PropTypes.number.isRequired,
       poster_path: PropTypes.string.isRequired,
       overview: PropTypes.string.isRequired,
       favorites: PropTypes.bool,

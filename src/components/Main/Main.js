@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getMoviesFromApi, setFavorites } from '../../actions/index.js';
+import { getMoviesFromApi, setFavorites, addUser } from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
+import Card from '../Card/Card';
 import {
   fetchApi,
   postBackend,
@@ -20,7 +21,7 @@ export class Main extends Component {
     const { userId: user_id } = this.props;
 
     const {
-      id: movie_id,
+      movie_id,
       title,
       poster_path,
       release_date,
@@ -43,21 +44,45 @@ export class Main extends Component {
 
   toggleFavorite = async movieData => {
     const { userId, setFavorites } = this.props;
-    const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
-    const duplicate = existingFavorites.data.find(
-      fav => fav.movie_id === movieData.id
-    );
-    if (!duplicate) {
+    const backendFavorites = await fetchApi(`api/users/${userId}/favorites/`);
+    const existingFavorites = this.markFavsAsFavorites(backendFavorites.data);
+    if (!movieData.favorite) {
+      movieData.favorite = !movieData.favorite;
       this.postFavorite(movieData);
-      setFavorites(existingFavorites.data);
+      setFavorites([...existingFavorites, movieData]);
     } else {
-      const body = { id: userId, movie_id: duplicate.movie_id };
+      const body = { id: userId, movie_id: movieData.movie_id };
+      movieData.favorite = !movieData.favorite;
+      this.deleteFromStore(existingFavorites, movieData);
       deleteFromBackend(
-        `api/users/${userId}/favorites/${duplicate.movie_id}`,
+        `api/users/${userId}/favorites/${movieData.movie_id}`,
         body
       );
     }
   };
+
+markFavsAsFavorites = (favorites) => {
+    return favorites.map( fav => {
+      fav.favorite = true;
+      return fav
+    })
+  }
+
+  deleteFromStore = (favorites, duplicate) => {
+    console.log('favorites', favorites)
+    console.log('duplicate', duplicate)
+    const { setFavorites } = this.props;
+    const duplicateRemoved = favorites.filter( fav => {
+      console.log('fav', fav.movie_id, 'dup', duplicate.movie_id)
+      return (fav.movie_id !== duplicate.movie_id);
+    })
+    setFavorites(duplicateRemoved);
+  }
+
+  resetStore = () => {
+    setFavorites([]);
+    addUser('','','','');
+  }
 
   render() {
     let { movieData, loggedIn } = this.props;
@@ -67,7 +92,7 @@ export class Main extends Component {
         return (
           <Card
             movieData={movie}
-            key={movie.id}
+            key={movie.movie_id}
             loggedIn={loggedIn}
             toggleFavorite={this.toggleFavorite}
           />
@@ -75,9 +100,13 @@ export class Main extends Component {
       });
       return (
         <div className="main">
-          <Link to={{ pathname: '/favorites' }}>
-            <button className="view-favorites">Favorites</button>
-          </Link>
+        {
+          loggedIn
+          && <Link to={{ pathname: '/favorites' }}>
+              <button className="view-favorites"
+                    onClick={this.resetStore}>Favorites</button>
+             </Link>
+        }
           {movies}
         </div>
       );
@@ -94,7 +123,8 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchMovies: movieData => dispatch(getMoviesFromApi(movieData)),
-  setFavorites: favorites => dispatch(setFavorites(favorites))
+  setFavorites: favorites => dispatch(setFavorites(favorites)),
+  addUser: user => dispatch(addUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
@@ -103,7 +133,7 @@ Main.propTypes = {
   movieData: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
+      movie_id: PropTypes.number.isRequired,
       poster_path: PropTypes.string.isRequired
     })
   ),

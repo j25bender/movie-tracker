@@ -31,13 +31,6 @@ export const setFavorites = favorites => ({
   favorites
 });
 
-// export const getMoviesFromApi = () => {
-//   return async (dispatch) => {
-//     const movieData = await fetchMovies(movieData);
-//     return await dispatch(getMovies(movieData));
-//   }
-// }
-
 export const getMoviesFromApi = () => {
   return dispatch => {
     fetchMovies().then(movieData => dispatch(getMovies(movieData)));

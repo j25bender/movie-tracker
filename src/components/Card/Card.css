@@ -12,14 +12,20 @@
   width: 314px;
   margin: 0 auto; }
 
-.favorite {
+.favorite-btn {
   background-image: url("../../assets/heart-outline.svg");
   background-repeat: no-repeat;
   border: none;
   width: 30px;
   height: 30px; }
-  .favorite:hover {
+  .favorite-btn:hover {
     background-image: url("../../assets/heart-filled.svg");
     width: 30px;
     height: 30px;
     background-size: cover; }
+
+.favorite {
+  background-image: url("../../assets/heart-filled.svg");
+  width: 30px;
+  height: 30px;
+  background-size: cover; }

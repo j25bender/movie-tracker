@@ -23,6 +23,7 @@ class Card extends Component {
     const { movieData, loggedIn } = this.props;
     // eslint-disable-next-line
     const { title, overview, poster_path } = movieData;
+    const favClass = movieData.favorite ? 'favorite' : '';
     return (
       <div>
         <h1 className="movie-title">{title}</h1>
@@ -33,7 +34,7 @@ class Card extends Component {
         {!loggedIn && message}
         <button
           onClick={() => this.displaySignUp(loggedIn)}
-          className="favorite"
+          className={`favorite-btn ${favClass}`}
         />
       </div>
     );

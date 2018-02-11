@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../../helpers/helper';
-import { getUser, login } from '../../actions/index';
+import { fetchApi } from '../../helpers/apiCalls';
+import { getUser, login, setFavorites, getMovies } from '../../actions/index';
 import PropTypes from 'prop-types';
 import './Login.css';
 
@@ -28,9 +29,36 @@ class Login extends Component {
         userMatch.id,
         userMatch.name
       );
+      this.loadFavorites(userMatch)
     } else {
       alert('Invalid email address and password!');
     }
+  }
+
+  loadFavorites = async (user) => {
+    const { setFavorites, getMovies } = this.props;
+    const existingFavorites = await fetchApi(`api/users/${user.id}/favorites/`);
+    const favorites = this.markFavsAsFavorites(existingFavorites.data);
+    const movies = this.markMoviesAsFavorites(existingFavorites.data);
+    setFavorites(favorites);
+    getMovies(movies);
+  }
+
+  markMoviesAsFavorites = (favorites) => {
+    const { movieData } = this.props;
+    return movieData.map( movie => {
+      movie.favorite = favorites.find( fav => movie.movie_id === fav.movie_id) 
+        ? true 
+        : false;
+      return movie
+    })
+  }
+
+  markFavsAsFavorites = (favorites) => {
+    return favorites.map( fav => {
+      fav.favorite = true;
+      return fav
+    })
   }
 
   render() {
@@ -65,14 +93,20 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  movieData: state.movieData
+})
+
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (email, password, userId, name) =>
     dispatch(getUser(email, password, userId, name)),
-  handleLogin: boolean => dispatch(login(boolean))
+  handleLogin: boolean => dispatch(login(boolean)),
+  setFavorites: favorites => dispatch(setFavorites(favorites)),
+  getMovies: movies => dispatch(getMovies(movies))
 });
 
 Login.propTypes = {
   handleSubmit: PropTypes.func
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
