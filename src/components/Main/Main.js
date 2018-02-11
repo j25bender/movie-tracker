@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getMoviesFromApi, setFavorites, addUser } from '../../actions/index.js';
+import {
+  getMoviesFromApi,
+  setFavorites,
+  addUser
+} from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
 import {
@@ -60,28 +64,25 @@ export class Main extends Component {
     }
   };
 
-markFavsAsFavorites = (favorites) => {
-    return favorites.map( fav => {
+  markFavsAsFavorites = favorites => {
+    return favorites.map(fav => {
       fav.favorite = true;
-      return fav
-    })
-  }
+      return fav;
+    });
+  };
 
   deleteFromStore = (favorites, duplicate) => {
-    console.log('favorites', favorites)
-    console.log('duplicate', duplicate)
     const { setFavorites } = this.props;
-    const duplicateRemoved = favorites.filter( fav => {
-      console.log('fav', fav.movie_id, 'dup', duplicate.movie_id)
-      return (fav.movie_id !== duplicate.movie_id);
-    })
+    const duplicateRemoved = favorites.filter(fav => {
+      return fav.movie_id !== duplicate.movie_id;
+    });
     setFavorites(duplicateRemoved);
-  }
+  };
 
   resetStore = () => {
     setFavorites([]);
-    addUser('','','','');
-  }
+    addUser('', '', '', '');
+  };
 
   render() {
     let { movieData, loggedIn } = this.props;
@@ -99,13 +100,13 @@ markFavsAsFavorites = (favorites) => {
       });
       return (
         <div className="main">
-        {
-          loggedIn
-          && <Link to={{ pathname: '/favorites' }}>
-              <button className="view-favorites"
-                    onClick={this.resetStore}>Favorites</button>
-             </Link>
-        }
+          {loggedIn && (
+            <Link to={{ pathname: '/favorites' }}>
+              <button className="view-favorites" onClick={this.resetStore}>
+                Favorites
+              </button>
+            </Link>
+          )}
           {movies}
         </div>
       );
@@ -138,5 +139,6 @@ Main.propTypes = {
   ),
 
   fetchMovies: PropTypes.func.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  setFavorites: PropTypes.func.isRequired
 };

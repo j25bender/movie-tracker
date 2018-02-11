@@ -15,7 +15,11 @@ class Card extends Component {
   displaySignUp = loggedIn => {
     const { toggleFavorite, movieData } = this.props;
     loggedIn && toggleFavorite(movieData);
-    message = !loggedIn ? <div id="not-signed-in">Sign up or log in to add favorites</div> : <div />;
+    message = !loggedIn ? (
+      <div id="not-signed-in">Sign up or log in to add favorites</div>
+    ) : (
+      <div />
+    );
     !loggedIn && this.setState({ clicked: true });
   };
 
@@ -44,7 +48,7 @@ class Card extends Component {
 Card.propTypes = {
   movieData: PropTypes.object.isRequired,
   toggleFavorite: PropTypes.func,
-  loggedIn: PropTypes.bool,
+  loggedIn: PropTypes.bool
 };
 
 export default Card;
