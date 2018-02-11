@@ -12,7 +12,9 @@ class Login extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      message: '',
+      error: false
     };
   }
 
@@ -20,18 +22,25 @@ class Login extends Component {
     const { handleLogin, handleSubmit } = this.props;
     const { email, password } = this.state;
     const userMatch = await fetchUser(email, password);
-
-    if (userMatch) {
-      handleLogin(true);
-      handleSubmit(
-        this.state.email.toLowerCase(),
-        this.state.password,
-        userMatch.id,
-        userMatch.name
-      );
-      this.loadFavorites(userMatch)
-    } else {
-      alert('Invalid email address and password!');
+    try {
+      if (userMatch) {
+        handleLogin(true);
+        handleSubmit(
+          this.state.email.toLowerCase(),
+          this.state.password,
+          userMatch.id,
+          userMatch.name
+        );
+        this.loadFavorites(userMatch)
+      } else {
+        this.setState({
+          message: 'Invalid email and password!'
+        })
+      }
+    } catch (error) {
+      this.setState({
+        error
+      })
     }
   }
 
@@ -64,6 +73,12 @@ class Login extends Component {
   render() {
     return (
       <section>
+        {
+          this.state.message && <div className="failed-login">{this.state.message}</div>
+        }
+        {
+          this.state.error && <div className="failed-login">{this.state.error}</div>
+        }
         <form
           onSubmit={event => {
             event.preventDefault();
