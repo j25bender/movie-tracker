@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getMoviesFromApi, setFavorites } from '../../actions/index.js';
+import { getMoviesFromApi, setFavorites, addUser } from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
+import Card from '../Card/Card';
 import {
   fetchApi,
   postBackend,
@@ -41,6 +42,7 @@ export class Main extends Component {
   };
 
   toggleFavorite = async movieData => {
+    //dynamically update onload
     const { userId, setFavorites } = this.props;
     const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
     const duplicate = existingFavorites.data.find(
@@ -48,15 +50,28 @@ export class Main extends Component {
     );
     if (!duplicate) {
       this.postFavorite(movieData);
-      setFavorites(existingFavorites.data);
+      setFavorites([...existingFavorites.data, movieData]);
     } else {
       const body = { id: userId, movie_id: duplicate.movie_id };
+      this.deleteFromStore(existingFavorites, duplicate);
       deleteFromBackend(
         `api/users/${userId}/favorites/${duplicate.movie_id}`,
         body
       );
     }
   };
+
+  deleteFromStore = (favorites, duplicate) => {
+    const { setFavorites } = this.props;
+    const duplicateRemoved = favorites.data.filter( fav => 
+      (fav.movie_id !== duplicate.movie_id));
+    setFavorites(duplicateRemoved);
+  }
+
+  resetStore = () => {
+    setFavorites([]);
+    addUser('','','','');
+  }
 
   render() {
     let { movieData, loggedIn } = this.props;
@@ -74,9 +89,13 @@ export class Main extends Component {
       });
       return (
         <div className="main">
-          <Link to={{ pathname: '/favorites' }}>
-            <button className="view-favorites">Favorites</button>
-          </Link>
+        {
+          loggedIn
+          && <Link to={{ pathname: '/favorites' }}>
+              <button className="view-favorites"
+                    onClick={this.resetStore}>Favorites</button>
+             </Link>
+        }
           {movies}
         </div>
       );
@@ -93,7 +112,8 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchMovies: movieData => dispatch(getMoviesFromApi(movieData)),
-  setFavorites: favorites => dispatch(setFavorites(favorites))
+  setFavorites: favorites => dispatch(setFavorites(favorites)),
+  addUser: user => dispatch(addUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
