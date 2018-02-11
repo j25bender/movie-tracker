@@ -3,6 +3,7 @@ import rootReducer from './index.js';
 import { movieReducer } from './movieReducer';
 import { userReducer } from './userReducer';
 import { loginReducer } from './loginReducer';
+import { favoritesReducer } from './favoritesReducer';
 
 describe('RootReducer Test', () => {
   const rootReducer = combineReducers({ movieReducer, userReducer, loginReducer });
@@ -62,4 +63,24 @@ describe('RootReducer Test', () => {
     store.dispatch(getUserAction)
     expect(store.getState().userReducer).toEqual(userReducer({}, getUserAction));    
   })
+
+  it('should have a favorites reducer which handles the SET_FAVORITES action type and updates store', () => {
+    expect(store.getState()).toEqual(expectedStore);
+
+    const favoriteProperties = {
+      id: 15,
+      movie_id: 395834,
+      overview: "An FBI agent teams with the town's veteran game tracker to investigate a murder that occurred on a Native American reservation.",
+      poster_path: "https://image.tmdb.org/t/p/w500/pySivdR845Hom4u4T2WNkJxe6Ad.jpg",
+      release_date: "2017-08-03",
+      title: "Wind River",
+      user_id: 2,
+      vote_average: "7.5"
+    }
+
+    const setUserAction = { type: 'SET_FAVORITES', favoriteProperties };
+    store.dispatch(setUserAction);
+    expect(store.getState().favoritesReducer).toEqual(favoritesReducer({}, setUserAction));
+  })
+
 })
