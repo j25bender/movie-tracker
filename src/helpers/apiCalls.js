@@ -31,4 +31,28 @@ const postBackend = async (url, body) => {
   }
 }
 
-export { fetchApi, postBackend };
+const deleteFromBackend = async (url, body) => {
+  try {
+    const initialFetch = await fetch(url, {
+            method: 'DELETE',
+            body: JSON.stringify(body),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+    console.log(initialFetch, 'body', body)
+    if (initialFetch.status <= 200) {
+      return await initialFetch.json();
+
+    } else {
+
+      throw new Error('Bad status code!');
+
+    }
+
+  } catch (error) {
+    throw new Error(`deleteFromBackend failed to post to backend: ${error}`);
+  }
+}
+
+export { fetchApi, postBackend, deleteFromBackend };
