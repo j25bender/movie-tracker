@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Card from '../Card/Card';
 import { connect } from 'react-redux';
 import { getMoviesFromApi, setFavorites } from '../../actions/index.js';
-import './Main.css';
-import PropTypes from 'prop-types';
 import { fetchApi, postBackend, deleteFromBackend } from '../../helpers/apiCalls';
+import Card from '../Card/Card';
+import PropTypes from 'prop-types';
+import './Main.css';
 
-class Main extends Component {
+export class Main extends Component {
   componentDidMount = async () => {
     this.props.fetchMovies();
   };
