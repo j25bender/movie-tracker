@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import Card from '../Card/Card';
 import { getMoviesFromApi, setFavorites } from '../../actions/index.js';

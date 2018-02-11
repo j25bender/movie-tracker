@@ -15,15 +15,21 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-
-          <Route exact path="/" render={ () => (
-            <Main movieData={this.props.movieData} />
-          )} />
-          <Route path="/favorites" render={ () => (
-            this.props.loggedIn
-            ? (<Main movieData={this.props.favorites} />)
-            : (<Main movieData={this.props.movieData} />)
-          ) } />
+          <Route
+            exact
+            path="/"
+            render={() => <Main movieData={this.props.movieData} />}
+          />
+          <Route
+            path="/favorites"
+            render={() =>
+              this.props.loggedIn ? (
+                <Main movieData={this.props.favorites} />
+              ) : (
+                <Main movieData={this.props.movieData} />
+              )
+            }
+          />
           <Route
             path="/login"
             render={() =>
@@ -36,7 +42,6 @@ class App extends Component {
               this.props.loggedIn ? <Redirect to="/" /> : <SignUp />
             }
           />
-          
         </Switch>
       </div>
     );
@@ -50,7 +55,21 @@ const mapStateToProps = state => ({
 });
 
 App.propTypes = {
-  loggedIn: PropTypes.bool
+  loggedIn: PropTypes.bool.isRequired,
+
+  movieData: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      poster_path: PropTypes.string.isRequired,
+      overview: PropTypes.string.isRequired,
+      favorites: PropTypes.bool,
+      release_date: PropTypes.string.isRequired,
+      vote_average: PropTypes.number.isRequired
+    })
+  ).isRequired,
+
+  favorites: PropTypes.array.isRequired
 };
 
 export default withRouter(connect(mapStateToProps, null)(App));
