@@ -76,7 +76,7 @@ export class SignUp extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   handleSubmit: (name, email, password, userId) =>
     dispatch(addUser(name, email, password, userId)),
   handleLogin: boolean => dispatch(login(boolean))
@@ -85,5 +85,6 @@ const mapDispatchToProps = dispatch => ({
 export default connect(null, mapDispatchToProps)(SignUp);
 
 SignUp.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired
 };
