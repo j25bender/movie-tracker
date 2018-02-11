@@ -34,7 +34,7 @@ class Main extends Component {
       overview
     };
 
-    const addFavorite = await postBackend('api/users/favorites/new/', favoriteProperties);
+    await postBackend('api/users/favorites/new/', favoriteProperties);
   };
 
   toggleFavorite = async movieData => {
@@ -42,11 +42,9 @@ class Main extends Component {
     const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
     const duplicate = existingFavorites.data.find( fav => fav.movie_id === movieData.id );
     if(!duplicate) {
-      console.log('if')
       this.postFavorite(movieData)
       setFavorites(existingFavorites.data)
     } else {
-      console.log(duplicate)
       const body ={ id: userId, movie_id: duplicate.movie_id }
       deleteFromBackend(`api/users/${userId}/favorites/${duplicate.movie_id}`, body)
     }
@@ -79,7 +77,6 @@ class Main extends Component {
 }
 
 export const mapStateToProps = state => ({
-  // movieData: state.movieData || [],
   loggedIn: state.loggedIn,
   userId: state.userData.userId
 });
