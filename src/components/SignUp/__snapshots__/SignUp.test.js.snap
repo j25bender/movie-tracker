@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUp match snapshot 1`] = `
+<section>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      autoComplete="email"
+      onChange={[Function]}
+      placeholder="name"
+      required={true}
+      value=""
+    />
+    <input
+      autoComplete="email"
+      onChange={[Function]}
+      placeholder="email"
+      required={true}
+      type="email"
+      value=""
+    />
+    <input
+      autoComplete="on"
+      onChange={[Function]}
+      placeholder="password"
+      required={true}
+      type="password"
+      value=""
+    />
+    <button>
+      Sign Up
+    </button>
+  </form>
+</section>
+`;
