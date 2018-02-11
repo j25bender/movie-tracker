@@ -3,7 +3,7 @@ import { fetchApi, postBackend } from './apiCalls';
 
 const imageUrl = 'https://image.tmdb.org/t/p/w500';
 
-const cleanMovies = movieData => {
+export const cleanMovies = movieData => {
   return movieData.results.map(movie => {
     return {
       title: movie.title,
@@ -28,7 +28,7 @@ export const fetchMovies = async () => {
   }
 };
 
-const findRequestedUser = (allUsers, email, password) => {
+export const findRequestedUser = (allUsers, email, password) => {
   return allUsers.data.find(user => {
     return user.email === email && user.password === password;
   });
