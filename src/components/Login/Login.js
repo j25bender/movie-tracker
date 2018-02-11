@@ -47,7 +47,7 @@ class Login extends Component {
   markMoviesAsFavorites = (favorites) => {
     const { movieData } = this.props;
     return movieData.map( movie => {
-      movie.favorite = favorites.find( fav => movie.id === fav.movie_id) 
+      movie.favorite = favorites.find( fav => movie.movie_id === fav.movie_id) 
         ? true 
         : false;
       return movie
