@@ -29,3 +29,17 @@
   width: 30px;
   height: 30px;
   background-size: cover; }
+
+#not-signed-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 3px;
+  background-color: #9c7e92;
+  width: 260px;
+  height: 43px;
+  position: absolute;
+  bottom: 0px;
+  margin: 0px 0 0 50px;
+  z-index: 1; }
