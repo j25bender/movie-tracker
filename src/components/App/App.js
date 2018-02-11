@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <div className="App">
@@ -48,7 +48,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
   movieData: state.movieData,
   favorites: state.favorites
