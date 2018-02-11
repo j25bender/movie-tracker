@@ -20,7 +20,7 @@ export class Main extends Component {
     const { userId: user_id } = this.props;
 
     const {
-      id: movie_id,
+      movie_id,
       title,
       poster_path,
       release_date,
@@ -50,11 +50,11 @@ export class Main extends Component {
       this.postFavorite(movieData);
       setFavorites([...existingFavorites, movieData]);
     } else {
-      const body = { id: userId, movie_id: movieData.id };
+      const body = { id: userId, movie_id: movieData.movie_id };
       movieData.favorite = !movieData.favorite;
       this.deleteFromStore(existingFavorites, movieData);
       deleteFromBackend(
-        `api/users/${userId}/favorites/${movieData.id}`,
+        `api/users/${userId}/favorites/${movieData.movie_id}`,
         body
       );
     }
@@ -68,9 +68,13 @@ markFavsAsFavorites = (favorites) => {
   }
 
   deleteFromStore = (favorites, duplicate) => {
+    console.log('favorites', favorites)
+    console.log('duplicate', duplicate)
     const { setFavorites } = this.props;
-    const duplicateRemoved = favorites.filter( fav => 
-      (fav.movie_id !== duplicate.id));
+    const duplicateRemoved = favorites.filter( fav => {
+      console.log('fav', fav.movie_id, 'dup', duplicate.movie_id)
+      return (fav.movie_id !== duplicate.movie_id);
+    })
     setFavorites(duplicateRemoved);
   }
 
@@ -87,7 +91,7 @@ markFavsAsFavorites = (favorites) => {
         return (
           <Card
             movieData={movie}
-            key={movie.id}
+            key={movie.movie_id}
             loggedIn={loggedIn}
             toggleFavorite={this.toggleFavorite}
           />
@@ -128,7 +132,7 @@ Main.propTypes = {
   movieData: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
+      movie_id: PropTypes.number.isRequired,
       poster_path: PropTypes.string.isRequired
     })
   ).isRequired,
