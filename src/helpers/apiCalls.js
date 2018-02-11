@@ -39,16 +39,11 @@ const deleteFromBackend = async (url, body) => {
               'Content-Type': 'application/json'
             }
           })
-    console.log(initialFetch, 'body', body)
     if (initialFetch.status <= 200) {
       return await initialFetch.json();
-
     } else {
-
       throw new Error('Bad status code!');
-
     }
-
   } catch (error) {
     throw new Error(`deleteFromBackend failed to post to backend: ${error}`);
   }
