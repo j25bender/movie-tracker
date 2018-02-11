@@ -1,4 +1,4 @@
-export const fetchApi = async url => {
+const fetchApi = async url => {
   try {
     const initialFetch = await fetch(url);
     if (initialFetch.status <= 200) {
@@ -30,7 +30,6 @@ const postBackend = async (url, body) => {
   }
 }
 
-<<<<<<< HEAD
 const deleteFromBackend = async (url, body) => {
   try {
     const initialFetch = await fetch(url, {
@@ -56,6 +55,3 @@ const deleteFromBackend = async (url, body) => {
 }
 
 export { fetchApi, postBackend, deleteFromBackend };
-=======
-export { fetchApi, postBackend };
->>>>>>> merge fix
