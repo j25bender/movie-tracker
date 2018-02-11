@@ -42,8 +42,8 @@ class Card extends Component {
 
 Card.propTypes = {
   movieData: PropTypes.object.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  toggleFavorite: PropTypes.func,
+  loggedIn: PropTypes.bool,
 };
 
 export default Card;
