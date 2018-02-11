@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getMoviesFromApi, setFavorites } from '../../actions/index.js';
-import { fetchApi, postBackend, deleteFromBackend } from '../../helpers/apiCalls';
-import Card from '../Card/Card';
-import PropTypes from 'prop-types';
 import './Main.css';
+import PropTypes from 'prop-types';
+import {
+  fetchApi,
+  postBackend,
+  deleteFromBackend
+} from '../../helpers/apiCalls';
 
 export class Main extends Component {
   componentDidMount = async () => {
@@ -14,7 +17,7 @@ export class Main extends Component {
 
   postFavorite = async movieData => {
     const { userId: user_id } = this.props;
-    
+
     const {
       id: movie_id,
       title,
@@ -40,19 +43,24 @@ export class Main extends Component {
   toggleFavorite = async movieData => {
     const { userId, setFavorites } = this.props;
     const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
-    const duplicate = existingFavorites.data.find( fav => fav.movie_id === movieData.id );
-    if(!duplicate) {
-      this.postFavorite(movieData)
-      setFavorites(existingFavorites.data)
+    const duplicate = existingFavorites.data.find(
+      fav => fav.movie_id === movieData.id
+    );
+    if (!duplicate) {
+      this.postFavorite(movieData);
+      setFavorites(existingFavorites.data);
     } else {
-      const body ={ id: userId, movie_id: duplicate.movie_id }
-      deleteFromBackend(`api/users/${userId}/favorites/${duplicate.movie_id}`, body)
+      const body = { id: userId, movie_id: duplicate.movie_id };
+      deleteFromBackend(
+        `api/users/${userId}/favorites/${duplicate.movie_id}`,
+        body
+      );
     }
   };
 
   render() {
     let { movieData, loggedIn } = this.props;
-    movieData = movieData ? movieData : []
+    movieData = movieData ? movieData : [];
     if (movieData.length) {
       const movies = movieData.map(movie => {
         return (
@@ -66,8 +74,10 @@ export class Main extends Component {
       });
       return (
         <div className="main">
-          <Link to={{ pathname: '/favorites' }}><button className="view-favorites">Favorites</button></Link>
-          { movies }
+          <Link to={{ pathname: '/favorites' }}>
+            <button className="view-favorites">Favorites</button>
+          </Link>
+          {movies}
         </div>
       );
     } else {
@@ -94,8 +104,9 @@ Main.propTypes = {
       title: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
       poster_path: PropTypes.string.isRequired
-    }).isRequired
+    })
   ).isRequired,
 
-  fetchMovies: PropTypes.func
+  fetchMovies: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired
 };
