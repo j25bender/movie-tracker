@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getMoviesFromApi, setFavorites, addUser } from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
-import Card from '../Card/Card';
 import {
   fetchApi,
   postBackend,
