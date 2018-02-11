@@ -24,26 +24,28 @@ class Card extends Component {
     const { title, overview, poster_path } = movieData;
     const favClass = movieData.favorite ? 'favorite' : '';
     return (
-      <div>
-        <h1 className="movie-title">{title}</h1>
-        <div className="flip-container" >
-          <div className="flipper">
-            <div className="front">
-              <article
-                className="card"
-                style={{ backgroundImage: `url(${poster_path})` }}
-              />
-            </div>
-              <div className="back">
-                <p>{overview}</p>
+      <div className="outer-container">
+        <div>
+          <h1 className="movie-title">{title}</h1>
+          <div className="flip-container" >
+            <div className="flipper">
+              <div className="front">
+                <article
+                  className="card"
+                  style={{ backgroundImage: `url(${poster_path})` }}
+                />
               </div>
-            </div>
+                <div className="back">
+                  <p>{overview}</p>
+                </div>
+              </div>
+          </div>
+            {!loggedIn && message}
+          <button
+            onClick={() => this.displaySignUp(loggedIn)}
+            className={`favorite-btn ${favClass}`}
+          />
         </div>
-          {!loggedIn && message}
-        <button
-          onClick={() => this.displaySignUp(loggedIn)}
-          className={`favorite-btn ${favClass}`}
-        />
       </div>
     );
   }

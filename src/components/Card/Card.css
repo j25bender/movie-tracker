@@ -6,6 +6,9 @@
   background-size: cover;
   height: 400px; }
 
+.outer-container {
+  position: relative; }
+
 .flip-container {
   -webkit-perspective: 1000;
   -moz-perspective: 1000;
@@ -55,7 +58,13 @@
   -moz-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
   transform: rotateY(180deg);
-  position: relative; }
+  position: relative;
+  background-color: #f9f7f7;
+  top: 30px;
+  border-radius: 4px;
+  padding: 30px 5px 0 5px;
+  left: -55px;
+  height: 375px; }
   .back p {
     font-size: 16px; }
 
@@ -66,6 +75,8 @@
   margin: 0 auto; }
 
 .favorite-btn {
+  position: absolute;
+  bottom: -79px;
   background-image: url("../../assets/heart-outline.svg");
   background-repeat: no-repeat;
   border: none;

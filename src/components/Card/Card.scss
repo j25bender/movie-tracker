@@ -7,6 +7,10 @@
   height: 400px;
 }
 
+.outer-container {
+  position: relative;
+}
+
 .flip-container {
   -webkit-perspective: 1000;
   -moz-perspective: 1000;
@@ -68,9 +72,16 @@
   -o-transform: rotateY(180deg);
   transform: rotateY(180deg);
   position: relative;
+  background-color: #f9f7f7;
+  top: 30px;
+  border-radius: 4px;
+  padding: 30px 5px 0 5px;
+  left: -55px;
+  height: 375px;
   p {
     font-size: 16px;
   }
+
 }
 
 .movie-title {
@@ -81,6 +92,8 @@
 }
 
 .favorite-btn {
+  position: absolute;
+  bottom: -79px;
   background-image: url('../../assets/heart-outline.svg');
   background-repeat: no-repeat;
   border: none;
