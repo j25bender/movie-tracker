@@ -42,29 +42,26 @@ export class Main extends Component {
   };
 
   toggleFavorite = async movieData => {
-    //dynamically update onload
     const { userId, setFavorites } = this.props;
     const existingFavorites = await fetchApi(`api/users/${userId}/favorites/`);
-    const duplicate = existingFavorites.data.find(
-      fav => fav.movie_id === movieData.id
-    );
-    if (!duplicate) {
+    if (!movieData.favorite) {
       this.postFavorite(movieData);
       setFavorites([...existingFavorites.data, movieData]);
     } else {
-      const body = { id: userId, movie_id: duplicate.movie_id };
-      this.deleteFromStore(existingFavorites, duplicate);
+      const body = { id: userId, movie_id: movieData.id };
+      this.deleteFromStore(existingFavorites, movieData);
       deleteFromBackend(
-        `api/users/${userId}/favorites/${duplicate.movie_id}`,
+        `api/users/${userId}/favorites/${movieData.id}`,
         body
       );
     }
+    movieData.favorite = !movieData.favorite;
   };
 
   deleteFromStore = (favorites, duplicate) => {
     const { setFavorites } = this.props;
     const duplicateRemoved = favorites.data.filter( fav => 
-      (fav.movie_id !== duplicate.movie_id));
+      (fav.movie_id !== duplicate.id));
     setFavorites(duplicateRemoved);
   }
 
