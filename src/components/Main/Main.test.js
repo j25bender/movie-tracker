@@ -53,12 +53,15 @@ describe('Main', () => {
   })
 
   describe('mapDispatchToProps', () => {
-    it('returns an object with keys of fetchMovies and setFavorites', () => {
-      const mockDispatch = jest.fn().mockImplementation((action) => {
-        return action;
-      });
+    it('should call the dispatch function when using a function from mapDispachToProps', () => {
+      const mockDispatch = jest.fn();
+      const mapped = mapDispatchToProps(mockDispatch)
 
-      expect(mapDispatchToProps(mockDispatch)).toEqual({fetchMovies: 'function', setFavorites: 'function'})
+      mapped.addUser();
+      mapped.fetchMovies();
+      mapped.setFavorites();
+      
+      expect(mockDispatch).toHaveBeenCalledTimes(3)
     })
   })
 
