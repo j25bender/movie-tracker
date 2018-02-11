@@ -11,7 +11,7 @@ exports[`Card matches the snapshot 1`] = `
     className="card"
     style={
       Object {
-        "backgroundImage": "url(https://image.tmdb.org/t/p/w500/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg)",
+        "backgroundImage": "url(undefined)",
       }
     }
   />

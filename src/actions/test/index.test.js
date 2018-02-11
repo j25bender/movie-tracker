@@ -18,26 +18,23 @@ describe('all actions', () => {
       type: 'GET_MOVIES',
       movieData: mockmovieData
     };
-    // const mockFetchMovies = store.dispatch(actions.getMovies(mockmovieData))
-    // console.log(store.getState())
-    // console.log(mockFetchMovies)
-    // console.log(actions.getMoviesFromApi(store.dispatch(mockFetchMovies)))
-    // expect(actions.getMoviesFromApi())
     expect(actions.getMovies(mockmovieData)).toEqual(expected);
   });
 
   it('should return a type of ADD_USER, with username, email and password', () => {
-    const username = 'Bob'
+    const name = 'Bob'
     const email = 'Bob@Bob.com'
     const password = 'Bob123'
+    const userId = 23
 
     const expected = {
       type: 'ADD_USER',
-      username,
+      name,
       email,
-      password
+      password,
+      userId
     }
-    expect(actions.addUser(username, email, password)).toEqual(expected)
+    expect(actions.addUser(name, email, password, userId)).toEqual(expected)
   })
 
   it('should return a type of GET_USER with an email and password', () => {
@@ -59,8 +56,4 @@ describe('all actions', () => {
     }
     expect(actions.login(false)).toEqual(expected);
   });
-
-  // it('getMoviesFromApi action should call fetchMovies', () => {
-    
-  // })
 });
