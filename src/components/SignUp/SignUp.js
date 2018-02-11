@@ -18,28 +18,28 @@ export class SignUp extends Component {
 
   async addUserDatabase(event) {
     event.preventDefault();
-    const { name, password, email} = this.state;
+    const { name, password, email } = this.state;
     const { handleLogin, handleSubmit } = this.props;
     try {
       const existingUser = await fetchUser(email);
       if (!existingUser) {
         const newUser = await postNewUser({ name, password, email });
         handleLogin(true);
-        handleSubmit( name, email.toLowerCase(), password, newUser.id );
+        handleSubmit(name, email.toLowerCase(), password, newUser.id);
       }
     } catch (error) {
       this.setState({
         error
-      })
+      });
     }
   }
 
   render() {
     return (
       <section>
-        {
-          this.state.error && <div className="failed-login">Failed to create new user</div>
-        }
+        {this.state.error && (
+          <div className="failed-login">Failed to create new user</div>
+        )}
         <form
           onSubmit={event => {
             event.preventDefault();
