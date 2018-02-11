@@ -21,17 +21,25 @@ class Card extends Component {
 
   render() {
     const { movieData, loggedIn } = this.props;
-    // eslint-disable-next-line
     const { title, overview, poster_path } = movieData;
     const favClass = movieData.favorite ? 'favorite' : '';
     return (
       <div>
         <h1 className="movie-title">{title}</h1>
-        <article
-          className="card"
-          style={{ backgroundImage: `url(${poster_path})` }}
-        />
-        {!loggedIn && message}
+        <div className="flip-container" >
+          <div className="flipper">
+            <div className="front">
+              <article
+                className="card"
+                style={{ backgroundImage: `url(${poster_path})` }}
+              />
+            </div>
+              <div className="back">
+                <p>{overview}</p>
+              </div>
+            </div>
+        </div>
+          {!loggedIn && message}
         <button
           onClick={() => this.displaySignUp(loggedIn)}
           className={`favorite-btn ${favClass}`}
