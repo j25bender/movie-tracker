@@ -7,7 +7,7 @@ const cleanMovies = movieData => {
   return movieData.results.map(movie => {
     return {
       title: movie.title,
-      id: movie.id,
+      movie_id: movie.id,
       poster_path: `${imageUrl}${movie.poster_path}`,
       overview: movie.overview,
       favorite: false,
