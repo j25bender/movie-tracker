@@ -121,7 +121,10 @@ export const mapDispatchToProps = dispatch => ({
 });
 
 Login.propTypes = {
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  handleLogin: PropTypes.func,
+  setFavorites: PropTypes.func,
+  getMovies: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
