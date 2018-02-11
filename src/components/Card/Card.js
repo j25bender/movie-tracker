@@ -15,7 +15,7 @@ class Card extends Component {
   displaySignUp = loggedIn => {
     const { toggleFavorite, movieData } = this.props;
     loggedIn && toggleFavorite(movieData);
-    message = !loggedIn ? <div className="not-signed-in">NOPE</div> : <div />;
+    message = !loggedIn ? <div id="not-signed-in">Sign up or log in to add favorites</div> : <div />;
     !loggedIn && this.setState({ clicked: true });
   };
 
