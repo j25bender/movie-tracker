@@ -6,7 +6,6 @@ import rootReducer from '../../reducers/index';
 let store = createStore(rootReducer)
 
 describe('all actions', () => {
-  it('should return a type of GET_MOVIES, with a movieData', () => {
     const mockmovieData = {
       title: 'Coco',
       id: 354912,
@@ -14,6 +13,7 @@ describe('all actions', () => {
       overview:
         "Despite his family’s baffling generations-old ban …ck the real story behind Miguel's family history."
     };
+  it('should return a type of GET_MOVIES, with a movieData', () => {
     const expected = {
       type: 'GET_MOVIES',
       movieData: mockmovieData
@@ -56,4 +56,8 @@ describe('all actions', () => {
     }
     expect(actions.login(false)).toEqual(expected);
   });
+
+  it('getMoviesFromApi returns a function', () => {
+    expect(typeof actions.getMoviesFromApi()).toEqual('function');
+  })
 });
