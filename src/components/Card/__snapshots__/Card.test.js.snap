@@ -17,6 +17,7 @@ exports[`Card matches the snapshot 1`] = `
   />
   <button
     className="favorite"
+    onClick={[Function]}
   />
 </div>
 `;
