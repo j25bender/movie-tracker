@@ -31,54 +31,54 @@ export class Login extends Component {
           userMatch.id,
           userMatch.name
         );
-        this.loadFavorites(userMatch)
+        this.loadFavorites(userMatch);
       } else {
         this.setState({
           message: 'Invalid email and password!'
-        })
+        });
       }
     } catch (error) {
       this.setState({
         error
-      })
+      });
     }
   }
 
-  loadFavorites = async (user) => {
+  loadFavorites = async user => {
     const { setFavorites, getMovies } = this.props;
     const existingFavorites = await fetchApi(`api/users/${user.id}/favorites/`);
     const favorites = this.markFavsAsFavorites(existingFavorites.data);
     const movies = this.markMoviesAsFavorites(existingFavorites.data);
     setFavorites(favorites);
     getMovies(movies);
-  }
+  };
 
-  markMoviesAsFavorites = (favorites) => {
+  markMoviesAsFavorites = favorites => {
     const { movieData } = this.props;
-    return movieData.map( movie => {
-      movie.favorite = favorites.find( fav => movie.movie_id === fav.movie_id) 
-        ? true 
+    return movieData.map(movie => {
+      movie.favorite = favorites.find(fav => movie.movie_id === fav.movie_id)
+        ? true
         : false;
-      return movie
-    })
-  }
+      return movie;
+    });
+  };
 
-  markFavsAsFavorites = (favorites) => {
-    return favorites.map( fav => {
+  markFavsAsFavorites = favorites => {
+    return favorites.map(fav => {
       fav.favorite = true;
-      return fav
-    })
-  }
+      return fav;
+    });
+  };
 
   render() {
     return (
       <section>
-        {
-          this.state.message && <div className="failed-login">{this.state.message}</div>
-        }
-        {
-          this.state.error && <div className="failed-login">{this.state.error}</div>
-        }
+        {this.state.message && (
+          <div className="failed-login">{this.state.message}</div>
+        )}
+        {this.state.error && (
+          <div className="failed-login">{this.state.error}</div>
+        )}
         <form
           onSubmit={event => {
             event.preventDefault();
@@ -110,7 +110,7 @@ export class Login extends Component {
 
 export const mapStateToProps = state => ({
   movieData: state.movieData
-})
+});
 
 export const mapDispatchToProps = dispatch => ({
   handleSubmit: (email, password, userId, name) =>
@@ -121,7 +121,18 @@ export const mapDispatchToProps = dispatch => ({
 });
 
 Login.propTypes = {
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func.isRequired,
+  movieData: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      movie_id: PropTypes.number.isRequired,
+      poster_path: PropTypes.string.isRequired,
+      overview: PropTypes.string.isRequired,
+      favorites: PropTypes.bool,
+      release_date: PropTypes.string.isRequired,
+      vote_average: PropTypes.number.isRequired
+    })
+  ).isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
