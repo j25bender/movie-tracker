@@ -22,7 +22,12 @@ class Login extends Component {
 
     if (userMatch) {
       handleLogin(true);
-      handleSubmit(this.state.email.toLowerCase(), this.state.password, userMatch.id, userMatch.name);
+      handleSubmit(
+        this.state.email.toLowerCase(),
+        this.state.password,
+        userMatch.id,
+        userMatch.name
+      );
     } else {
       alert('Invalid email address and password!');
     }
@@ -61,7 +66,8 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (email, password, userId, name) => dispatch(getUser(email, password, userId, name)),
+  handleSubmit: (email, password, userId, name) =>
+    dispatch(getUser(email, password, userId, name)),
   handleLogin: boolean => dispatch(login(boolean))
 });
 
