@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header loggedIn boolean should determine buttons rendered 1`] = `
+<nav>
+  <div
+    className="login-container"
+  >
+    <p>
+      Woz
+    </p>
+    <button
+      className="logout"
+      onClick={[Function]}
+    >
+      Log Out
+    </button>
+  </div>
+  <NavLink
+    activeClassName="active"
+    ariaCurrent="true"
+    to={
+      Object {
+        "pathname": "/",
+      }
+    }
+  >
+    <h1
+      className="title"
+    >
+      Movie Tracker
+    </h1>
+  </NavLink>
+</nav>
+`;
+
+exports[`Header matches the snapshot 1`] = `
+<nav>
+  <div
+    className="login-container"
+  >
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to={
+        Object {
+          "pathname": "/sign-up",
+        }
+      }
+    >
+      <button
+        className="sign-up"
+      >
+        Sign Up
+      </button>
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to={
+        Object {
+          "pathname": "/login",
+        }
+      }
+    >
+      <button
+        className="login"
+      >
+        Login
+      </button>
+    </NavLink>
+  </div>
+  <NavLink
+    activeClassName="active"
+    ariaCurrent="true"
+    to={
+      Object {
+        "pathname": "/",
+      }
+    }
+  >
+    <h1
+      className="title"
+    >
+      Movie Tracker
+    </h1>
+  </NavLink>
+</nav>
+`;

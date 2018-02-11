@@ -1,16 +1,36 @@
-/* eslint-disable */
-import React, { Component } from 'react';
-import Card from '../Card/Card';
-import { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
+import { shallow } from 'enzyme';
+import { Header, mapStateToProps, mapDispatchToProps } from './Header';
+import { login } from '../../actions/index';
 
+describe('Header', () => {
+  let mockFunc;
+  it('matches the snapshot', () => {
+    mockFunc = jest.fn();
+    const wrapper = shallow(<Header loggedIn={false} logout={mockFunc} name="" />);
+    expect(wrapper).toMatchSnapshot()
+  })
 
-//Enzyme.configure({ adapter: new Adapter() });
+  it('loggedIn boolean should determine buttons rendered', () => {
+    mockFunc = jest.fn();
+    const wrapper = shallow(<Header loggedIn={true} logout={mockFunc} name="Woz" />);
+    expect(wrapper).toMatchSnapshot()
+  })
 
-describe('Main', () => {
-    it('matches the snapshot', () => {
-        // const wrapper = shallow(<Main />);
-        
-        // expect(wrapper).toMatchSnapshot();
-    }); 
-});
+  it('should map store correctly', () => {
+    const mockStore = {
+      loggedIn: true, 
+      userData: { name: "Wendy" }
+    }
+    const mapped = mapStateToProps(mockStore);
+    expect(mapped.loggedIn).toEqual(mockStore.loggedIn);
+    expect(mapped.name).toEqual(mockStore.userData.name)
+  })
+
+  it('should call dispatch when Log Out button clicked', () => {
+    const mockDispatch = jest.fn();
+    const mapped = mapDispatchToProps(mockDispatch);
+    mapped.logout(true)
+    expect(mockDispatch).toHaveBeenCalled()
+  })
+})

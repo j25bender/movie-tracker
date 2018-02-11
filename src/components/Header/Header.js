@@ -35,12 +35,12 @@ export const Header = props => {
   );
 };
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
   name: state.userData.name
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   logout: boolean => dispatch(login(boolean))
 });
 

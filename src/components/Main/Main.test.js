@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Card from '../Card/Card';
 import { getMoviesFromApi, setFavorites } from '../../actions/index.js';
-import { Main, mapStateToProps, mapDispatchToProps } from './Main'
+import { Main, mapStateToProps, mapDispatchToProps } from './Main';
 import apiCalls from '../../helpers/apiCalls';
 import { shallow } from 'enzyme';
 
