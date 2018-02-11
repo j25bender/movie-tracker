@@ -6,7 +6,7 @@ import { getUser, login, setFavorites, getMovies } from '../../actions/index';
 import PropTypes from 'prop-types';
 import './Login.css';
 
-class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -108,11 +108,11 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   movieData: state.movieData
 })
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   handleSubmit: (email, password, userId, name) =>
     dispatch(getUser(email, password, userId, name)),
   handleLogin: boolean => dispatch(login(boolean)),
