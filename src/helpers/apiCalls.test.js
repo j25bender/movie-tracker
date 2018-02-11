@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { fetchApi, fetchBackend } from './apiCalls';
-let error;
 
 describe('API Call Tests', () => {
   const expectedUrl = 'https://movie-tracker.com/api/';
@@ -22,22 +21,11 @@ describe('API Call Tests', () => {
     "release_date": "2017-07-07"
   }]
 
-  it('everything is not ok', async () => {
-    let recievedError;
-    let errObj = new Error();
-    let expectedError = [`${errObj}: fetchApi failed to fetch data: ${errObj}: Bad status code!`];
-    window.fetch = jest.fn().mockImplementation( () => {
-      return Promise.resolve({
-        ok: false,
-        status: 404
+  it('throws an error if response is above 200', () => {
+    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+        status: 500,   
       })
-    })
-    try {
-      await fetchApi()
-    }
-    catch(err) {
-      recievedError = err
-    }
-    expect(recievedError).toEqual(expectedError)          
+    )
+    expect(fetchApi('google.com')).rejects.toEqual(Error('fetchApi failed to fetch data: Error: Bad status code!'));
   })
 })
