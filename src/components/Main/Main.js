@@ -5,7 +5,8 @@ import {
   getMoviesFromApi,
   setFavorites,
   addUser,
-  getMovies
+  getMovies,
+  hasErrored
 } from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
@@ -36,21 +37,25 @@ export class Main extends Component {
   };
 
   toggleFavorite = async movieData => {
-    const { userId, setFavorites } = this.props;
-    const backendFavorites = await fetchApi(`api/users/${userId}/favorites/`);
-    const existingFavorites = this.markFavsAsFavorites(backendFavorites.data);
-    if (!movieData.favorite) {
-      movieData.favorite = !movieData.favorite;
-      this.postFavorite(movieData);
-      setFavorites([...existingFavorites, movieData]);
-    } else {
-      const body = { id: userId, movie_id: movieData.movie_id };
-      movieData.favorite = !movieData.favorite;
-      this.deleteFromStore(existingFavorites, movieData);
-      deleteFromBackend(
-        `api/users/${userId}/favorites/${movieData.movie_id}`,
-        body
-      );
+    const { userId, setFavorites, hasErrored } = this.props;
+    try {
+      const backendFavorites = await fetchApi(`api/users/${userId}/favorites/`);
+      const existingFavorites = this.markFavsAsFavorites(backendFavorites.data);
+      if (!movieData.favorite) {
+        movieData.favorite = !movieData.favorite;
+        this.postFavorite(movieData);
+        setFavorites([...existingFavorites, movieData]);
+      } else {
+        const body = { id: userId, movie_id: movieData.movie_id };
+        movieData.favorite = !movieData.favorite;
+        this.deleteFromStore(existingFavorites, movieData);
+        deleteFromBackend(
+          `api/users/${userId}/favorites/${movieData.movie_id}`,
+          body
+        );
+      }
+    } catch (error) {
+      hasErrored(true)
     }
   };
 
@@ -109,7 +114,8 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   fetchMovies: movieData => dispatch(getMoviesFromApi(movieData)),
   setFavorites: favorites => dispatch(setFavorites(favorites)),
-  addUser: user => dispatch(addUser(user))
+  addUser: user => dispatch(addUser(user)),
+  hasErrored: boolean => dispatch(hasErrored(boolean))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
@@ -125,5 +131,6 @@ Main.propTypes = {
 
   fetchMovies: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
-  setFavorites: PropTypes.func.isRequired
+  setFavorites: PropTypes.func.isRequired,
+  hasErrored: PropTypes.func
 };
