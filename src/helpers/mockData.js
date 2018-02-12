@@ -350,6 +350,39 @@ id: 399404,
   total_pages: 38
 };
 
+export const movieDataSansFavs = [
+{
+    movie_id: 354912,
+    overview:
+      "Despite his family’s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events. Along the way, he meets charming trickster Hector, and together, they set off on an extraordinary journey to unlock the real story behind Miguel's family history.",
+    poster_path:
+      'https://image.tmdb.org/t/p/w500/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg',
+    release_date: '2017-10-27',
+    title: 'Coco',
+    vote_average: 7.7
+  },
+  {
+    movie_id: 284053,
+    overview:
+      'Thor is imprisoned on the other side of the universe and finds himself in a race against time to get back to Asgard to stop Ragnarok, the prophecy of destruction to his homeworld and the end of Asgardian civilization, at the hands of an all-powerful new threat, the ruthless Hela.',
+    poster_path:
+      'https://image.tmdb.org/t/p/w500/oSLd5GYGsiGgzDPKTwQh7wamO8t.jpg',
+    release_date: '2017-10-25',
+    title: 'Thor: Ragnarok',
+    vote_average: 7.4
+  },
+  {
+    movie_id: 335777,
+    overview:
+      'When the evil mayor of Oakton decides to bulldoze Liberty Park and build a dangerous amusement park in its place, Surly Squirrel and his ragtag group of animal friends need to band together to save their home, defeat the mayor, and take back the park.',
+    poster_path:
+      'https://image.tmdb.org/t/p/w500/xOfdQHNF9TlrdujyAjiKfUhxSXy.jpg',
+    release_date: '2017-08-11',
+    title: 'The Nut Job 2: Nutty by Nature',
+    vote_average: 5.9
+  }
+]
+
 export const filteredMovieData = [
   {
     favorite: false,
