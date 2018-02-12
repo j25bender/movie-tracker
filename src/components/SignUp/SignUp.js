@@ -49,7 +49,7 @@ export class SignUp extends Component {
           <input
             value={this.state.name}
             placeholder="name"
-            autoComplete="email"
+            autoComplete="text"
             onChange={event => this.setState({ name: event.target.value })}
             required
           />
