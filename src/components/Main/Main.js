@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {
   getMoviesFromApi,
   setFavorites,
-  addUser
+  addUser,
+  getMovies
 } from '../../actions/index.js';
 import './Main.css';
 import PropTypes from 'prop-types';
@@ -22,26 +23,15 @@ export class Main extends Component {
 
   postFavorite = async movieData => {
     const { userId: user_id } = this.props;
-
-    const {
-      movie_id,
-      title,
-      poster_path,
-      release_date,
-      vote_average,
-      overview
-    } = movieData;
-
     const favoriteProperties = {
-      movie_id,
+      movie_id: movieData.movie_id,
       user_id,
-      title,
-      poster_path,
-      release_date,
-      vote_average,
-      overview
+      title: movieData.title,
+      poster_path: movieData.poster_path,
+      release_date: movieData.release_date,
+      vote_average: movieData.vote_average,
+      overview: movieData.vote_average
     };
-
     await postBackend('api/users/favorites/new/', favoriteProperties);
   };
 
@@ -79,11 +69,6 @@ export class Main extends Component {
     setFavorites(duplicateRemoved);
   };
 
-  resetStore = () => {
-    setFavorites([]);
-    addUser('', '', '', '');
-  };
-
   render() {
     let { movieData, loggedIn } = this.props;
     movieData = movieData ? movieData : [];
@@ -101,8 +86,8 @@ export class Main extends Component {
       return (
         <div className="main">
           {loggedIn && (
-            <Link to={{ pathname: '/favorites' }}>
-              <button className="view-favorites" onClick={this.resetStore}>
+            <Link to={{ pathname: '/favorites' }} >
+              <button className="view-favorites">
                 Favorites
               </button>
             </Link>

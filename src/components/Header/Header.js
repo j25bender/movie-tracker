@@ -2,15 +2,28 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 import { connect } from 'react-redux';
-import { login } from '../../actions/index';
+import { login, setFavorites, addUser, getMovies } from '../../actions/index';
 import PropTypes from 'prop-types';
 
 export const Header = props => {
-  const { loggedIn, logout, name } = props;
+  const { loggedIn, logout, name, movieData } = props;
+
+  const resetStore = () => {
+    console.log('resetting')
+    logout(false);
+    setFavorites([]);
+    addUser('', '', '', '');
+    const resetMovies = movieData.map( movie => {
+      movie.favorite = false
+      return movie;
+    });
+    getMovies(resetMovies);
+  };
+
   const signInButtons = loggedIn ? (
     <div className="login-container">
       <p>{name}</p>
-      <button className="logout" onClick={() => logout(false)}>
+      <button className="logout" onClick={resetStore}>
         Log Out
       </button>
     </div>
@@ -37,7 +50,8 @@ export const Header = props => {
 
 export const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
-  name: state.userData.name
+  name: state.userData.name,
+  movieData: state.movieData
 });
 
 export const mapDispatchToProps = dispatch => ({

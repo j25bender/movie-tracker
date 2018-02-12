@@ -8,6 +8,7 @@
 
 .view-favorites {
   position: absolute;
+  top: 86px;
   right: 20px;
   height: 25px;
   border: none;
