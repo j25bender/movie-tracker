@@ -96,15 +96,15 @@
   background-size: cover; }
 
 #not-signed-in {
+  bottom: -82px;
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  color: #fff;
   border-radius: 3px;
-  background-color: #9c7e92;
-  width: 260px;
+  margin: 0px 0 0 50px;
+  background-color: #961717;
+  color: #fff;
   height: 43px;
   position: absolute;
-  bottom: 0px;
-  margin: 0px 0 0 50px;
+  width: 260px;
   z-index: 1; }
