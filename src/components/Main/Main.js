@@ -74,8 +74,7 @@ export class Main extends Component {
   };
 
   render() {
-    let { movieData, loggedIn, favorites } = this.props;
-    movieData = movieData ? movieData : [];
+    let { movieData = [], loggedIn, favorites = [] } = this.props;
     if (movieData.length) {
       const movies = movieData.map(movie => {
         const fav = favorites.find(favorite => favorite[movie.movie_id]);
