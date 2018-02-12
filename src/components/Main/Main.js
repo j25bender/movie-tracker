@@ -55,7 +55,7 @@ export class Main extends Component {
         );
       }
     } catch (error) {
-      hasErrored(true)
+      hasErrored(true);
     }
   };
 
@@ -75,13 +75,16 @@ export class Main extends Component {
   };
 
   render() {
-    let { movieData, loggedIn } = this.props;
+    let { movieData, loggedIn, favorites } = this.props;
     movieData = movieData ? movieData : [];
     if (movieData.length) {
       const movies = movieData.map(movie => {
+        const movieRender = favorites[movie.movie_id]
+          ? favorites[movie.movie_id]
+          : movie;
         return (
           <Card
-            movieData={movie}
+            movieData={movieRender}
             key={movie.movie_id}
             loggedIn={loggedIn}
             toggleFavorite={this.toggleFavorite}
@@ -91,10 +94,8 @@ export class Main extends Component {
       return (
         <div className="main">
           {loggedIn && (
-            <Link to={{ pathname: '/favorites' }} >
-              <button className="view-favorites">
-                Favorites
-              </button>
+            <Link to={{ pathname: '/favorites' }}>
+              <button className="view-favorites">Favorites</button>
             </Link>
           )}
           {movies}
