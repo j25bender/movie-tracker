@@ -5,7 +5,6 @@ import {
   getMoviesFromApi,
   setFavorites,
   addUser,
-  getMovies,
   hasErrored
 } from '../../actions/index.js';
 import './Main.css';
@@ -55,7 +54,7 @@ export class Main extends Component {
         );
       }
     } catch (error) {
-      hasErrored(true)
+      hasErrored(true);
     }
   };
 
@@ -75,13 +74,15 @@ export class Main extends Component {
   };
 
   render() {
-    let { movieData, loggedIn } = this.props;
+    let { movieData, loggedIn, favorites } = this.props;
     movieData = movieData ? movieData : [];
     if (movieData.length) {
       const movies = movieData.map(movie => {
+        const fav = favorites.find(favorite => favorite[movie.movie_id]);
+
         return (
           <Card
-            movieData={movie}
+            movieData={fav || movie}
             key={movie.movie_id}
             loggedIn={loggedIn}
             toggleFavorite={this.toggleFavorite}
@@ -91,10 +92,8 @@ export class Main extends Component {
       return (
         <div className="main">
           {loggedIn && (
-            <Link to={{ pathname: '/favorites' }} >
-              <button className="view-favorites">
-                Favorites
-              </button>
+            <Link to={{ pathname: '/favorites' }}>
+              <button className="view-favorites">Favorites</button>
             </Link>
           )}
           {movies}
@@ -122,6 +121,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
 Main.propTypes = {
   movieData: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      movie_id: PropTypes.number.isRequired,
+      poster_path: PropTypes.string.isRequired
+    })
+  ),
+
+  favorites: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       movie_id: PropTypes.number.isRequired,

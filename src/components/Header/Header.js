@@ -9,12 +9,11 @@ export const Header = props => {
   const { loggedIn, logout, name, movieData } = props;
 
   const resetStore = () => {
-    console.log('resetting')
     logout(false);
     setFavorites([]);
     addUser('', '', '', '');
-    const resetMovies = movieData.map( movie => {
-      movie.favorite = false
+    const resetMovies = movieData.map(movie => {
+      movie.favorite = false;
       return movie;
     });
     getMovies(resetMovies);
@@ -61,7 +60,14 @@ export const mapDispatchToProps = dispatch => ({
 Header.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
-  name: PropTypes.string
+  name: PropTypes.string,
+  movieData: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      movie_id: PropTypes.number.isRequired,
+      poster_path: PropTypes.string.isRequired
+    })
+  )
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

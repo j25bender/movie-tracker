@@ -18,7 +18,12 @@ export class App extends Component {
           <Route
             exact
             path="/"
-            render={() => <Main movieData={this.props.movieData} />}
+            render={() => (
+              <Main
+                movieData={this.props.movieData}
+                favorites={this.props.favorites}
+              />
+            )}
           />
           <Route
             path="/favorites"

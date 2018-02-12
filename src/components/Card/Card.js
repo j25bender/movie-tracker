@@ -31,7 +31,7 @@ class Card extends Component {
       <div className="outer-container">
         <div>
           <h1 className="movie-title">{title}</h1>
-          <div className="flip-container" >
+          <div className="flip-container">
             <div className="flipper">
               <div className="front">
                 <article
@@ -39,12 +39,12 @@ class Card extends Component {
                   style={{ backgroundImage: `url(${poster_path})` }}
                 />
               </div>
-                <div className="back">
-                  <p>{overview}</p>
-                </div>
+              <div className="back">
+                <p>{overview}</p>
               </div>
+            </div>
           </div>
-            {!loggedIn && message}
+          {!loggedIn && message}
           <button
             onClick={() => this.displaySignUp(loggedIn)}
             className={`favorite-btn ${favClass}`}
