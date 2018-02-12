@@ -1,32 +1,32 @@
 /* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  cleanMovies,
-  fetchMovies,
-  findRequestedUser,
-  fetchUser,
-  postNewUser
-} from './helper';
+import * as helper from './helper';
+import * as api from './apiCalls';
 import { movieData, filteredMovieData, allUsers } from './mockData';
 
 describe('helper', () => {
-  it('has multiple functions', () => {
-    expect(cleanMovies).toBeDefined();
-    expect(fetchMovies).toBeDefined();
-    expect(fetchUser).toBeDefined();
-    expect(postNewUser).toBeDefined();
-  });
-
   describe('cleanMovies', () => {
-    it('Filters an array of objects', () => {
-      const result = cleanMovies(movieData);
+    it('filters an array of objects', () => {
+      const result = helper.cleanMovies(movieData);
       expect(result).toEqual(filteredMovieData);
     });
   });
 
   describe('fetchMovies', () => {
-    it.skip('Fetchs movie data and returns a filtered array of objects', async () => {
+
+    it('throws an error if response is above 200', () => {
+      window.fetch = jest.fn().mockImplementation(() =>
+        Promise.resolve({
+          status: 500
+        })
+      );
+      expect(helper.fetchMovies()).rejects.toEqual(
+        Error('fetchMovies failed to fetch data')
+      );
+    });
+
+    it('fetches movie data and returns a filtered array of objects', async () => {
       window.fetch = jest.fn().mockImplementation(() => ({
         status: 200,
         json: () =>
@@ -35,35 +35,28 @@ describe('helper', () => {
           })
       }));
 
-      const result = await fetchMovies();
-      expect(result).toEqual(filteredMovieData);
-    });
+      api.fetchApi = jest.fn().mockImplementation(() => {
+        return movieData
+      })
 
-    it('throws an error if response is above 200', () => {
-      window.fetch = jest.fn().mockImplementation(() =>
-        Promise.resolve({
-          status: 500
-        })
-      );
-      expect(fetchMovies()).rejects.toEqual(
-        Error('fetchMovies failed to fetch data')
-      );
+      const result = await helper.fetchMovies();
+      expect(result).toEqual(filteredMovieData);
     });
   });
 
   describe('findRequestedUser', () => {
     it('finds a match in an array if both the username and password key value pairs are identical to what is passed in', () => {
-      expect(findRequestedUser(allUsers, 'steve@smail.com', 'letmein')).toEqual(
+      expect(helper.findRequestedUser(allUsers, 'steve@smail.com', 'letmein')).toEqual(
         undefined
       );
-      expect(findRequestedUser(allUsers, 'bob@aol.com', 'password')).toEqual(
+      expect(helper.findRequestedUser(allUsers, 'bob@aol.com', 'password')).toEqual(
         undefined
       );
       expect(
-        findRequestedUser(allUsers, 'tman2272@aol.com', 'letmein')
+        helper.findRequestedUser(allUsers, 'tman2272@aol.com', 'letmein')
       ).toEqual(undefined);
       expect(
-        findRequestedUser(allUsers, 'tman2272@aol.com', 'password')
+        helper.findRequestedUser(allUsers, 'tman2272@aol.com', 'password')
       ).toEqual({
         email: 'tman2272@aol.com',
         id: 1,
@@ -74,39 +67,49 @@ describe('helper', () => {
   });
 
   describe('fetchUser', () => {
-    it.skip('makes a fetch to get data and then finds the requested user', () => {
-      // fetch Api was called
-      // findRequesr was called
-    });
-
     it('throws an error if response is above 200', () => {
       window.fetch = jest.fn().mockImplementation(() =>
         Promise.resolve({
           status: 500
         })
       );
-      expect(fetchUser()).rejects.toEqual(
+      expect(helper.fetchUser()).rejects.toEqual(
         Error('fetchUser failed to fetch data')
       );
+    });
+
+    it('makes a fetch to get data and then finds the requested user', () => {
+      api.fetchApi = jest.fn().mockImplementation(() => {
+        return allUsers
+      })
+
+      helper.fetchUser('email', 'password');
+      expect(api.fetchApi).toHaveBeenCalled()
     });
   });
 
   describe('postNewUser', () => {
-    it.skip('adds new data to the backEnd database', () => {
-      // postBackend was called
-    });
-
     it('throws an error if response is above 200', () => {
       window.fetch = jest.fn().mockImplementation(() =>
         Promise.resolve({
           status: 500
         })
       );
-      expect(postNewUser()).rejects.toEqual(
+      expect(helper.postNewUser()).rejects.toEqual(
         Error(
           'postNewUser failed to post to backend: Error: postBackend failed to post to backend: Error: Bad status code!'
         )
       );
+    });
+
+    it('adds new data to the backEnd database', async () => {
+      api.postBackend = jest.fn().mockImplementation(() => {
+        return 'success'
+      })
+
+      await helper.postNewUser({})
+
+      expect(api.postBackend).toHaveBeenCalled();
     });
   });
 });

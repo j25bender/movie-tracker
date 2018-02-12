@@ -6,8 +6,6 @@ import { Main, mapStateToProps, mapDispatchToProps } from './Main';
 import apiCalls from '../../helpers/apiCalls';
 import { shallow } from 'enzyme';
 
-// jest.mock('../../helpers/apiCalls');
-
 describe('Main', () => {
   const fakeStore = (state) => {
     return {

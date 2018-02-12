@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Login, mapDispatchToProps } from './Login';
+import { Login, mapStateToProps, mapDispatchToProps } from './Login';
 import { filteredMovieData, movieDataSansFavs } from '../../helpers/mockData';
 import { getUser, login } from '../../actions/index';
 import * as helper from '../../helpers/helper';
@@ -89,7 +89,13 @@ describe('Login', () => {
     })
 
     describe('matchStateToProps', () => {
-        
+        const text = 'some text'
+        const id = 0
+        const mockStore = {
+          movieData: filteredMovieData
+        }
+        const mapped = mapStateToProps(mockStore)
+        expect(mapped.filteredMovieData).toEqual(mockStore.filteredMovieData)
     })
 
     describe('matchDispatchToProps', () => {
