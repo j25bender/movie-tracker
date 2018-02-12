@@ -5,7 +5,6 @@ import {
   getMoviesFromApi,
   setFavorites,
   addUser,
-  getMovies,
   hasErrored
 } from '../../actions/index.js';
 import './Main.css';
@@ -79,7 +78,7 @@ export class Main extends Component {
     movieData = movieData ? movieData : [];
     if (movieData.length) {
       const movies = movieData.map(movie => {
-        const fav = favorites.find( favorite => favorite[movie.movie_id] )
+        const fav = favorites.find(favorite => favorite[movie.movie_id]);
 
         return (
           <Card
@@ -122,6 +121,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
 Main.propTypes = {
   movieData: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      movie_id: PropTypes.number.isRequired,
+      poster_path: PropTypes.string.isRequired
+    })
+  ),
+
+  favorites: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       movie_id: PropTypes.number.isRequired,
