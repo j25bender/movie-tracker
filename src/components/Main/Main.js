@@ -79,12 +79,11 @@ export class Main extends Component {
     movieData = movieData ? movieData : [];
     if (movieData.length) {
       const movies = movieData.map(movie => {
-        const movieRender = favorites[movie.movie_id]
-          ? favorites[movie.movie_id]
-          : movie;
+        const fav = favorites.find( favorite => favorite[movie.movie_id] )
+
         return (
           <Card
-            movieData={movieRender}
+            movieData={fav || movie}
             key={movie.movie_id}
             loggedIn={loggedIn}
             toggleFavorite={this.toggleFavorite}
