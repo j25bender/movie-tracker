@@ -5,6 +5,12 @@ export const getMovies = movieData => ({
   movieData
 });
 
+export const getMoviesFromApi = () => {
+  return dispatch => {
+    fetchMovies().then(movieData => dispatch(getMovies(movieData)));
+  };
+};
+
 export const addUser = (name, email, password, userId) => ({
   type: 'ADD_USER',
   name,
@@ -31,8 +37,7 @@ export const setFavorites = favorites => ({
   favorites
 });
 
-export const getMoviesFromApi = () => {
-  return dispatch => {
-    fetchMovies().then(movieData => dispatch(getMovies(movieData)));
-  };
-};
+export const hasErrored = boolean => ({
+  type: 'HAS_ERRORED',
+  boolean
+})
