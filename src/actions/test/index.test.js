@@ -60,4 +60,14 @@ describe('all actions', () => {
   it('getMoviesFromApi returns a function', () => {
     expect(typeof actions.getMoviesFromApi()).toEqual('function');
   })
+
+  it('hasErrored has type HAS_ERRORED and payload of boolean', () => {
+    const boolean = true;
+    const expected = {
+      type: 'HAS_ERRORED',
+      boolean
+    }
+
+    expect(actions.hasErrored(true)).toEqual(expected);
+  })
 });
