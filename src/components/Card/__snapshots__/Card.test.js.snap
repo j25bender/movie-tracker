@@ -1,23 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Card matches the snapshot 1`] = `
-<div>
-  <h1
-    className="movie-title"
-  >
-    Coco
-  </h1>
-  <article
-    className="card"
-    style={
-      Object {
-        "backgroundImage": "url(undefined)",
-      }
-    }
-  />
-  <button
-    className="favorite-btn "
-    onClick={[Function]}
-  />
+<div
+  className="outer-container"
+>
+  <div>
+    <h1
+      className="movie-title"
+    >
+      Coco
+    </h1>
+    <div
+      className="flip-container"
+    >
+      <div
+        className="flipper"
+      >
+        <div
+          className="front"
+        >
+          <article
+            className="card"
+            style={
+              Object {
+                "backgroundImage": "url(undefined)",
+              }
+            }
+          />
+        </div>
+        <div
+          className="back"
+        >
+          <p>
+            Despite his family’s baffling generations-old ban …ck the real story behind Miguel's family history.
+          </p>
+        </div>
+      </div>
+    </div>
+    <button
+      className="favorite-btn "
+      onClick={[Function]}
+    />
+  </div>
 </div>
 `;
